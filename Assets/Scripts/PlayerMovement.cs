@@ -2,15 +2,25 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    public float speed = 5f;
+    public float jump = 5f;
+    public Rigidbody playerPhysics;
     void Update()
     {
-        
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            playerPhysics.AddForce(transform.up * jump);
+        }
+
+
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+        transform.Translate(movement * speed * Time.deltaTime);
     }
+
 }
