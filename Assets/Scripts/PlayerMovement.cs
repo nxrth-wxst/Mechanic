@@ -4,14 +4,16 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f;
     public float jump = 5f;
-    public Rigidbody playerPhysics;
+   // public Rigidbody playerPhysics;
+
+
     void Update()
     {
 
-        if (Input.GetKey(KeyCode.Space))
-        {
-            playerPhysics.AddForce(transform.up * jump);
-        }
+  //      if (Input.GetKey(KeyCode.Space))
+  //      {
+  //          playerPhysics.AddForce(transform.up * jump);
+//        }
 
 
         float moveHorizontal = Input.GetAxis("Horizontal");
@@ -22,5 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
         transform.Translate(movement * speed * Time.deltaTime);
     }
+
+
 
 }
