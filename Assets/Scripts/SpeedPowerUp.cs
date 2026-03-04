@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class SpeedPowerUp : MonoBehaviour
+public class SpeedPowerUp : MonoBehaviour, ICollidable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void ICollidable.OnCollision(PlayerMovement player)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Debug.Log("Was Hit");
     }
 }
+
