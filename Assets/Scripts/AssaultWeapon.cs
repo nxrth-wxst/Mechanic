@@ -2,15 +2,18 @@ using UnityEngine;
 
 public class Assault : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public GameObject Bullet;
+    public float launchVelocity = 1f;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetButtonDown("Fire1"))
+        {
+            GameObject projectile = Instantiate(Bullet, transform.position, transform.rotation);
+            projectile.GetComponent<Rigidbody>().AddForce(new Vector3(0, launchVelocity, 0));
+          
+        }
     }
+
+
 }
