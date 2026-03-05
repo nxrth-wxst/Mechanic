@@ -1,19 +1,24 @@
 using UnityEngine;
 
-public class Assault : MonoBehaviour
+public class AssaultWeaponOriginal : MonoBehaviour, IBullet
 {
     public GameObject Bullet;
-    public float launchVelocity = 1f;
+    public float BulletPower = 6f;
 
-    void Update()
+    public void Shoot(float BulletPower)
+    {
+        GameObject Bullet = Instantiate(this.Bullet, transform.position, transform.rotation); //Bullet cloning
+        Rigidbody rb = Bullet.GetComponent<Rigidbody>(); //Bullets Rigidbody
+        rb.AddForce(-transform.forward * BulletPower, ForceMode.Impulse); //Power of the bullet
+    }
+
+    void Update() //IBullet Interface so it can shoot
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            GameObject projectile = Instantiate(Bullet, transform.position, transform.rotation);
-            projectile.GetComponent<Rigidbody>().AddForce(new Vector3(0, launchVelocity, 0));
-          
+            IBullet iBullet = GetComponent<IBullet>();
+            iBullet.Shoot(BulletPower);
         }
     }
-
-
 }
+
