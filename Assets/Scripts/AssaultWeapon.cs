@@ -7,18 +7,32 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
 
     public void Shoot(float BulletPower)
     {
-        GameObject Bullet = Instantiate(this.Bullet, transform.position, transform.rotation); //Bullet cloning
-        Rigidbody rb = Bullet.GetComponent<Rigidbody>(); //Bullets Rigidbody
-        rb.AddForce(-transform.forward * BulletPower, ForceMode.Impulse); //Power of the bullet
+        GameObject Bullet = Instantiate(this.Bullet, transform.position, transform.rotation); //Clones the bullet
+        Rigidbody rb = Bullet.GetComponent<Rigidbody>(); //Rigidbody so the bullet can move
+        rb.AddForce(-transform.forward * BulletPower, ForceMode.Impulse); //bullet launching
     }
 
-    void Update() //IBullet Interface so it can shoot
+    public void PistolShoot(float BulletPower1)
     {
+        GameObject Bullet = Instantiate(this.Bullet, transform.position, transform.rotation);
+        Rigidbody rb = Bullet.GetComponent<Rigidbody>();
+        rb.AddForce(-transform.forward * BulletPower1, ForceMode.Impulse);
+    }
+
+    void Update()
+    {
+        IBullet iBullet = GetComponent<IBullet>();
+
         if (Input.GetButtonDown("Fire1"))
         {
-            IBullet iBullet = GetComponent<IBullet>();
+          
             iBullet.Shoot(BulletPower);
+        }
+        
+        if (Input.GetButtonDown("Fire2")) 
+        {
+          
+            iBullet.PistolShoot(BulletPower);
         }
     }
 }
-
