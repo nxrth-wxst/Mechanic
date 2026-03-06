@@ -29,10 +29,5 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
             iBullet.Shoot(BulletPower);
         }
         
-        if (Input.GetButtonDown("Fire2")) 
-        {
-          
-            iBullet.PistolShoot(BulletPower);
-        }
     }
 }
