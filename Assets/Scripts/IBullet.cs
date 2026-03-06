@@ -3,7 +3,9 @@ using UnityEngine;
 
 public interface IBullet 
 {
-    public void Shoot(float BulletShoot);  
-    public void PistolShoot(float PistolShoot);
+  public void Shoot(float BulletShoot);
+
 
 }
+
+
