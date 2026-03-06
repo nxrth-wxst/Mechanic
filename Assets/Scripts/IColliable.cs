@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface ICollidable
 {
-    public void OnCollision(PlayerMovement player);
+    public void OnCollision(BulletScript Bullet);
 }

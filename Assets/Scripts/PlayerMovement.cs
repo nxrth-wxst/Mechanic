@@ -42,23 +42,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
         transform.Translate(movement * speed * Time.deltaTime);
-        Debug.Log(timer);
+        
     }
 
-    public void SpeedBoost()
-    {
-        timer = 3f;
-        timer -= (Time.deltaTime * 1f);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        ICollidable collidable = other.GetComponent<ICollidable>();
-
-        if (collidable != null)
-        {
-            SpeedBoost();
-        }
-
-    }
+  
 }
