@@ -906,8 +906,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jump: 5
-  playerPhysics: {fileID: 0}
+  playerPhysics: {fileID: 1679458931}
   timer: 0
+  CheckDistance: 0
+  JumpableLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!54 &1679458931
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -947,7 +951,7 @@ GameObject:
   - component: {fileID: 1796318612}
   - component: {fileID: 1796318611}
   - component: {fileID: 1796318610}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

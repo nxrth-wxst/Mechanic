@@ -13,6 +13,12 @@ public class PlayerMovement : MonoBehaviour
     private Controls controls;
     private Rigidbody rb;
 
+
+    private bool isGrounded;
+    public float CheckDistance;
+    [SerializeField] private LayerMask JumpableLayer;
+   
+    
     void Update()
     {
 
@@ -52,21 +58,42 @@ public class PlayerMovement : MonoBehaviour
 
         //       transform.Translate(movement * speed * Time.deltaTime);
 
+
+
+        isGrounded = false;
+        
+        
+        if(Physics.Raycast(transform.position, Vector3.down, CheckDistance, JumpableLayer))
+        {
+            isGrounded = true; 
+        }
+    
+    
+    
+    
     }
 
     void Start()
     {
         controls = new Controls();
         controls.Player.Enable();
-
         controls.Player.Jump.performed += Jump_performed; // subscribing, not jumping here
         // anytime the jump action is performed, the Jump_performed method will get called automatically
-
+        isGrounded = false;
         rb = GetComponent<Rigidbody>();
     }
 
     private void Jump_performed(InputAction.CallbackContext context)
     {
-        rb.AddForce(transform.up * 5, ForceMode.Impulse);
+
+        if (isGrounded == true)
+        {
+            rb.AddForce(transform.up * 5, ForceMode.Impulse);
+        }
     }
+
+
+
+
+
 }
