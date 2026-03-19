@@ -44,6 +44,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchWeapon1"",
+                    ""type"": ""Button"",
+                    ""id"": ""6455353d-9729-4fee-85cd-16f1ccc7df87"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchWeapon2"",
+                    ""type"": ""Button"",
+                    ""id"": ""89d95dcd-506a-494c-a5fa-71eb55bdca9c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -167,6 +185,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e497039a-d1ac-459c-9dd3-6959b9e37173"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchWeapon1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eb05bf35-9bd8-4549-b5c2-312c54a3ea64"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchWeapon2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -177,6 +217,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Walk = m_Player.FindAction("Walk", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_SwitchWeapon1 = m_Player.FindAction("SwitchWeapon1", throwIfNotFound: true);
+        m_Player_SwitchWeapon2 = m_Player.FindAction("SwitchWeapon2", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -245,12 +287,16 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Walk;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_SwitchWeapon1;
+    private readonly InputAction m_Player_SwitchWeapon2;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
         public PlayerActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Walk => m_Wrapper.m_Player_Walk;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @SwitchWeapon1 => m_Wrapper.m_Player_SwitchWeapon1;
+        public InputAction @SwitchWeapon2 => m_Wrapper.m_Player_SwitchWeapon2;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -266,6 +312,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @SwitchWeapon1.started += instance.OnSwitchWeapon1;
+            @SwitchWeapon1.performed += instance.OnSwitchWeapon1;
+            @SwitchWeapon1.canceled += instance.OnSwitchWeapon1;
+            @SwitchWeapon2.started += instance.OnSwitchWeapon2;
+            @SwitchWeapon2.performed += instance.OnSwitchWeapon2;
+            @SwitchWeapon2.canceled += instance.OnSwitchWeapon2;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -276,6 +328,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @SwitchWeapon1.started -= instance.OnSwitchWeapon1;
+            @SwitchWeapon1.performed -= instance.OnSwitchWeapon1;
+            @SwitchWeapon1.canceled -= instance.OnSwitchWeapon1;
+            @SwitchWeapon2.started -= instance.OnSwitchWeapon2;
+            @SwitchWeapon2.performed -= instance.OnSwitchWeapon2;
+            @SwitchWeapon2.canceled -= instance.OnSwitchWeapon2;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -297,5 +355,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     {
         void OnWalk(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnSwitchWeapon1(InputAction.CallbackContext context);
+        void OnSwitchWeapon2(InputAction.CallbackContext context);
     }
 }

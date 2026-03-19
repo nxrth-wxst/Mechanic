@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 5f;
-    public float jump = 5f;
-    public Rigidbody playerPhysics;
+    private float speed = 5f;
+    private float jump = 5f;
+    [SerializeField] private Rigidbody playerPhysics;
     [SerializeField] private float timer = 0f;
 
     private Controls controls;
@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     private bool isGrounded;
-    public float CheckDistance;
+    private float CheckDistance;
     [SerializeField] private LayerMask JumpableLayer;
    
     
@@ -81,6 +81,8 @@ public class PlayerMovement : MonoBehaviour
         // anytime the jump action is performed, the Jump_performed method will get called automatically
         isGrounded = false;
         rb = GetComponent<Rigidbody>();
+        CheckDistance = 1f;
+        
     }
 
     private void Jump_performed(InputAction.CallbackContext context)
@@ -91,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(transform.up * 5, ForceMode.Impulse);
         }
     }
-
+      
 
 
 

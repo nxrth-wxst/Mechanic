@@ -5,7 +5,8 @@ public class BulletScript : MonoBehaviour
 {
 
 
-    public float Damage;
+    private float Damage;
+  
 
     private void OnTriggerEnter(Collider other)
     {
@@ -47,7 +48,10 @@ public class BulletScript : MonoBehaviour
         Destroy(gameObject);
     }
 
-
+    public float HMDamage
+    {
+       get { return Damage; }
+    }
 
 
 

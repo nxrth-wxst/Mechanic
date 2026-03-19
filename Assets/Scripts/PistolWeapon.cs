@@ -20,7 +20,7 @@ public class PistolWeapon : MonoBehaviour, IBullet
     {
         IBullet iBullet = GetComponent<IBullet>();
 
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire1"))
         {
             iBullet.Shoot(BulletPower);
         }

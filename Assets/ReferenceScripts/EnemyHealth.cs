@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, ICollidable
 {
-    public float dummyHealth = 15f;
+    private float dummyHealth = 15f;
     
     
     void ICollidable.OnCollision(BulletScript Bullet)
     {
-        dummyHealth -= Bullet.Damage;
+        dummyHealth -= Bullet.HMDamage;
     }
 
     public void Update()
