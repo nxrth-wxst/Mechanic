@@ -5,7 +5,6 @@ public class PistolWeapon : MonoBehaviour, IBullet
 {
     public GameObject PistolBullet;
     public float BulletPower = 6f;
-    public float timer;
 
     void IBullet.Shoot(float PistolShoot)
     {
@@ -24,16 +23,6 @@ public class PistolWeapon : MonoBehaviour, IBullet
         {
             iBullet.Shoot(BulletPower);
         }
- 
-
-
-
-
-
-
-
-
-
     }
 
 

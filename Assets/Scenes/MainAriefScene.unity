@@ -125,7 +125,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1679458928}
+    m_TransformParent: {fileID: 330585546}
     m_Modifications:
     - target: {fileID: 1487774384131766, guid: ee329c3cd08e58645834d20702d7f6c6, type: 3}
       propertyPath: m_Name
@@ -145,15 +145,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4519716788627816, guid: ee329c3cd08e58645834d20702d7f6c6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5496766
+      value: 0.54
       objectReference: {fileID: 0}
     - target: {fileID: 4519716788627816, guid: ee329c3cd08e58645834d20702d7f6c6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.024999963
+      value: -0.255
       objectReference: {fileID: 0}
     - target: {fileID: 4519716788627816, guid: ee329c3cd08e58645834d20702d7f6c6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.4956804
+      value: 0.69
       objectReference: {fileID: 0}
     - target: {fileID: 4519716788627816, guid: ee329c3cd08e58645834d20702d7f6c6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -298,7 +298,9 @@ Transform:
   m_LocalPosition: {x: -0.01999957, y: 0.67, z: -0.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1396453656}
+  - {fileID: 703601461}
   m_Father: {fileID: 1679458928}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &330585547
@@ -667,7 +669,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1679458928}
+    m_TransformParent: {fileID: 330585546}
     m_Modifications:
     - target: {fileID: 1694449805434718, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
       propertyPath: m_Name
@@ -675,7 +677,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4952727429218122, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.4996316
+      value: 3.499632
       objectReference: {fileID: 0}
     - target: {fileID: 4952727429218122, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
       propertyPath: m_LocalScale.y
@@ -687,15 +689,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4952727429218122, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.41156292
+      value: -0.53
       objectReference: {fileID: 0}
     - target: {fileID: 4952727429218122, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.21103908
+      value: -0.36
       objectReference: {fileID: 0}
     - target: {fileID: 4952727429218122, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.58094937
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: 4952727429218122, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
       propertyPath: m_LocalRotation.w
@@ -777,7 +779,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PistolBullet: {fileID: 2989264373236439713, guid: 80e6e953d94ba474580a865c59b3a920, type: 3}
   BulletPower: 100
-  timer: 5
 --- !u!1 &1679458924
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,9 +889,7 @@ Transform:
   m_LocalScale: {x: 0.9505, y: 0.9505, z: 0.9505}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 703601461}
   - {fileID: 330585546}
-  - {fileID: 1396453656}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1679458930
