@@ -299,8 +299,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+<<<<<<< HEAD
   - {fileID: 703601461}
   - {fileID: 1396453656}
+=======
+  - {fileID: 1396453656}
+  - {fileID: 703601461}
+>>>>>>> 32cd91c5fd349ee99bbc825065314c602d039817
   m_Father: {fileID: 1679458928}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &330585547
@@ -779,7 +784,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PistolBullet: {fileID: 2989264373236439713, guid: 80e6e953d94ba474580a865c59b3a920, type: 3}
   BulletPower: 100
-  timer: 5
 --- !u!1 &1679458924
 GameObject:
   m_ObjectHideFlags: 0

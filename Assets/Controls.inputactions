@@ -24,6 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
+<<<<<<< HEAD
                     "name": "SwitchWeapon1",
                     "type": "Button",
                     "id": "6455353d-9729-4fee-85cd-16f1ccc7df87",
@@ -36,6 +37,11 @@
                     "name": "SwitchWeapon2",
                     "type": "Button",
                     "id": "89d95dcd-506a-494c-a5fa-71eb55bdca9c",
+=======
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "2bc8dbe6-4325-4d29-ba78-1d1e991a0883",
+>>>>>>> 32cd91c5fd349ee99bbc825065314c602d039817
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -166,6 +172,7 @@
                 },
                 {
                     "name": "",
+<<<<<<< HEAD
                     "id": "e497039a-d1ac-459c-9dd3-6959b9e37173",
                     "path": "<Keyboard>/1",
                     "interactions": "",
@@ -183,6 +190,14 @@
                     "processors": "",
                     "groups": "",
                     "action": "SwitchWeapon2",
+=======
+                    "id": "e46ee1c3-ac46-4b87-9581-4a39badde5bd",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+>>>>>>> 32cd91c5fd349ee99bbc825065314c602d039817
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

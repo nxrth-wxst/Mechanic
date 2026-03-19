@@ -24,14 +24,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (timer > 0f)
         {
-
             speed = 8f;
             timer -= (Time.deltaTime * 1f);
             jump = 0.60f;
-
-
         }
-
         if (timer < 0f)
         {
             speed = 5f;
@@ -43,34 +39,11 @@ public class PlayerMovement : MonoBehaviour
         Vector3 walkVector = new Vector3(walkInput.x, 0, walkInput.y);
         transform.Translate(walkVector * Time.deltaTime * 10);
 
-        //       if (Input.GetKey(KeyCode.Space))
-        //      {
-        //          playerPhysics.AddForce(Vector3.up * jump, ForceMode.Impulse);
-        //      }
-
-
-        //     float moveHorizontal = Input.GetAxis("Horizontal");
-        //     float moveVertical = Input.GetAxis("Vertical");
-
-
-
-        //      Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-
-        //       transform.Translate(movement * speed * Time.deltaTime);
-
-
-
         isGrounded = false;
-        
-        
         if(Physics.Raycast(transform.position, Vector3.down, CheckDistance, JumpableLayer))
         {
             isGrounded = true; 
         }
-    
-    
-    
-    
     }
 
     void Start()
