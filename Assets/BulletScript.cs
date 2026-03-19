@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BulletScript : MonoBehaviour
@@ -17,21 +18,11 @@ public class BulletScript : MonoBehaviour
            
             
             
+            Destroy(gameObject);
             
             
             
             
-            //EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
-            //if (enemyHealth != null)
-            //{
-            //    enemyHealth.dummyHealth -= 1f;
-            //}
-
-            //BigEnemy bigEnemy = other.GetComponent<BigEnemy>();
-            //if (bigEnemy != null)
-            //{
-            //    bigEnemy.dummyHealth -= 1f;
-            //}
         }
     
     
@@ -44,6 +35,21 @@ public class BulletScript : MonoBehaviour
     {
         Damage = 1.0f;
     }
+
+    private void Update()
+    {
+        StartCoroutine(DeleteBullet());
+    }
+
+    private IEnumerator DeleteBullet()
+    {
+        yield return new WaitForSeconds(5);
+        Destroy(gameObject);
+    }
+
+
+
+
 
 
 
