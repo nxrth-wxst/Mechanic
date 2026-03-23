@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
 
 
-    private bool isGrounded;
+    private bool isGrounded; 
     private float CheckDistance;
     [SerializeField] private LayerMask JumpableLayer;
    
