@@ -62,6 +62,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShootAssault"",
+                    ""type"": ""Button"",
+                    ""id"": ""46db91aa-9b91-491d-98ca-1a0819322c3c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShootPistol"",
+                    ""type"": ""Button"",
+                    ""id"": ""75bafc00-fb45-4741-9af9-b1ac1cb97534"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +170,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7274148a-ef45-4650-b779-516ad2950770"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootAssault"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""329c2e55-459d-451c-a1c0-8a0549017295"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootPistol"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +204,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_SwitchWeapon2 = m_Player.FindAction("SwitchWeapon2", throwIfNotFound: true);
         m_Player_Walk = m_Player.FindAction("Walk", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_ShootAssault = m_Player.FindAction("ShootAssault", throwIfNotFound: true);
+        m_Player_ShootPistol = m_Player.FindAction("ShootPistol", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -234,6 +276,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SwitchWeapon2;
     private readonly InputAction m_Player_Walk;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_ShootAssault;
+    private readonly InputAction m_Player_ShootPistol;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -242,6 +286,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @SwitchWeapon2 => m_Wrapper.m_Player_SwitchWeapon2;
         public InputAction @Walk => m_Wrapper.m_Player_Walk;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @ShootAssault => m_Wrapper.m_Player_ShootAssault;
+        public InputAction @ShootPistol => m_Wrapper.m_Player_ShootPistol;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -263,6 +309,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @ShootAssault.started += instance.OnShootAssault;
+            @ShootAssault.performed += instance.OnShootAssault;
+            @ShootAssault.canceled += instance.OnShootAssault;
+            @ShootPistol.started += instance.OnShootPistol;
+            @ShootPistol.performed += instance.OnShootPistol;
+            @ShootPistol.canceled += instance.OnShootPistol;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -279,6 +331,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @ShootAssault.started -= instance.OnShootAssault;
+            @ShootAssault.performed -= instance.OnShootAssault;
+            @ShootAssault.canceled -= instance.OnShootAssault;
+            @ShootPistol.started -= instance.OnShootPistol;
+            @ShootPistol.performed -= instance.OnShootPistol;
+            @ShootPistol.canceled -= instance.OnShootPistol;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -302,5 +360,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnSwitchWeapon2(InputAction.CallbackContext context);
         void OnWalk(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnShootAssault(InputAction.CallbackContext context);
+        void OnShootPistol(InputAction.CallbackContext context);
     }
 }

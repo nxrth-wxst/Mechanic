@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static UnityEngine.UI.Image;
 
 public class PistolWeapon : MonoBehaviour, IBullet
 {
     public GameObject PistolBullet;
     public float BulletPower = 6f;
+    private Controls controls;
 
     void IBullet.Shoot(float PistolShoot)
     {
@@ -15,15 +17,18 @@ public class PistolWeapon : MonoBehaviour, IBullet
      
     }
 
-    void Update()
+    void Start()
     {
-        IBullet iBullet = GetComponent<IBullet>();
+        controls = new Controls();
+        controls.Player.Enable();
+        controls.Player.ShootPistol.performed += ShootTheGun;
 
-        if (Input.GetButtonDown("Fire1"))
-        {
-            iBullet.Shoot(BulletPower);
-        }
     }
 
-
+    private void ShootTheGun(InputAction.CallbackContext context)
+    {
+        if (!isActiveAndEnabled) return; 
+        IBullet iBullet = GetComponent<IBullet>();
+        iBullet.Shoot(BulletPower);
+    }
 }

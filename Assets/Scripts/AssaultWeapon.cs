@@ -5,7 +5,7 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
 {
     [SerializeField] private GameObject Bullet;
     [SerializeField] private float BulletPower = 6f;
-  //  private Controls controls;
+    private Controls controls;
     void IBullet.Shoot(float BulletPower)
     {
         GameObject Bullet = Instantiate(this.Bullet, transform.position, transform.rotation); //Clones the bullet
@@ -16,27 +16,20 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
     }
 
 
-    void Update()
+    void Start()
     {
-       // controls = new Controls();
-     //   controls.Player.Enable();
-       // controls.Player.Shoot.performed += ShootTheGun;
-
-
-       IBullet iBullet = GetComponent<IBullet>();
-       if (Input.GetButtonDown("Fire1"))
-       {
-
-          iBullet.Shoot(BulletPower);
-       }
+        controls = new Controls();
+        controls.Player.Enable();
+        controls.Player.ShootAssault.performed += ShootTheGun;
 
     }
 
-  //  private void ShootTheGun(InputAction.CallbackContext context)
-   // {
-   //     IBullet iBullet = GetComponent<IBullet>();
-   //     iBullet.Shoot(BulletPower);
-   // }
+    private void ShootTheGun(InputAction.CallbackContext context)
+    {
+        if (!isActiveAndEnabled) return;
+        IBullet iBullet = GetComponent<IBullet>();
+        iBullet.Shoot(BulletPower);
+    }
 
 
 }
