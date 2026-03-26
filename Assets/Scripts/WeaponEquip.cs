@@ -4,9 +4,9 @@ using UnityEngine.InputSystem;
 
 public class WeaponEquip : MonoBehaviour
 {
-    [SerializeField]private GameObject Gun1;
-    [SerializeField]private GameObject Gun2;
-    [SerializeField]private GameObject Gun3;
+    [SerializeField]private GameObject gun1;
+    [SerializeField]private GameObject gun2;
+    [SerializeField]private GameObject gun3;
     private Controls controls;
     private bool Gun1Equipped;
     private bool Gun2Equipped;
@@ -28,18 +28,18 @@ public class WeaponEquip : MonoBehaviour
 
     private void SwitchWeapon1_formed(InputAction.CallbackContext context)
     {
-        Gun1.SetActive(true);
+        gun1.SetActive(true);
         Gun1Equipped = true;
         Gun2Equipped = false;
-        Gun2.SetActive(false);
+        gun2.SetActive(false);
     }
 
     private void SwitchWeapon2_formed(InputAction.CallbackContext context)
     {
-        Gun2.SetActive(true);
+        gun2.SetActive(true);
         Gun2Equipped = true;
         Gun1Equipped = false;
-        Gun1.SetActive(false);
+        gun1.SetActive(false);
     }
 
 
