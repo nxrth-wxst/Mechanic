@@ -172,6 +172,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: be3776e9bd6e31341b3490a035f6ea50, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4011265248625515690}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: be3776e9bd6e31341b3490a035f6ea50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -561820480809970659}
   m_SourcePrefab: {fileID: 100100000, guid: be3776e9bd6e31341b3490a035f6ea50, type: 3}
 --- !u!4 &2382779225872631095 stripped
 Transform:
@@ -193,7 +196,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 11
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -217,7 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d22caae3813fd849a742be7375e8735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLocation: {fileID: 0}
 --- !u!54 &4644081242613785216
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -278,3 +280,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2.2241588, z: 1}
   m_Center: {x: 0, y: 0.6120795, z: 0}
+--- !u!114 &-561820480809970659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8359592997367025423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f80716277d2f54d9e49c410fc84a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
