@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField]private Transform playerLocation;
+    
     private UnityEngine.AI.NavMeshAgent basicEnemy;
     
     
@@ -10,7 +10,8 @@ public class EnemyAI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       basicEnemy = GetComponent<UnityEngine.AI.NavMeshAgent>();
+       
+        basicEnemy = GetComponent<UnityEngine.AI.NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -18,7 +19,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (basicEnemy.isOnNavMesh)
         {
-            basicEnemy.SetDestination(playerLocation.position);
+            basicEnemy.SetDestination(PlayerMovement.Instance.transform.position);
         }
     }
 

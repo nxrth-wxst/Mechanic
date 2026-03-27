@@ -5,7 +5,7 @@ public class WaveSystem : MonoBehaviour
 {
     [Header("WaveSettings")]
     [SerializeField] private GameObject enemy1Prefab;
-    [SerializeField] private Transform  spawnPoints;
+    [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private int enemiesPerWave = 5;
     [SerializeField] private float spawnTime = 1f;
 
@@ -23,21 +23,44 @@ public class WaveSystem : MonoBehaviour
     IEnumerator StartNextWave()
     {
         yield return new WaitForSeconds(5);
+
+
+        currentWave++;
+        Debug.Log("Wave " + currentWave + " starting!");
+
+
         int EnemiesToSpawn = enemiesPerWave + (currentWave - 1) * 2;
         enemiesAlive = EnemiesToSpawn;
         waveInProgress = true;
 
-        
 
-   
+        for (int i = 0; i < enemiesAlive; i++)
+        {
+            SpawnEnemy();
+            yield return new WaitForSeconds(spawnTime);
+        }
     }
-   
-   
-   
-   
-   
-   
-    // Update is called once per frame
+
+
+    void SpawnEnemy()
+    {
+        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        GameObject enemy = Instantiate(enemy1Prefab, spawnPoint.position, spawnPoint.rotation);
+        enemy.GetComponent<EnemyHealth>().SetWaveManager(this);
+    }
+
+    public void OnEnemyDied()
+    {
+        enemiesAlive--;
+        if (enemiesAlive <= 0 && waveInProgress)
+        {
+            waveInProgress = false;
+            Debug.Log("Wave " + currentWave + " cleared!");
+            StartCoroutine(StartNextWave());
+        }
+    }
+
+        // Update is called once per frame
     void Update()
     {
         

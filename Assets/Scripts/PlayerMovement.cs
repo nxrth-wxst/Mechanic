@@ -10,15 +10,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody playerPhysics;
     [SerializeField] private float timer = 0f;
 
+    public static PlayerMovement Instance { get; private set; }
+
     private Controls controls;
     private Rigidbody rb;
 
 
-    private bool isGrounded; 
+    private bool isGrounded;
     private float CheckDistance;
     [SerializeField] private LayerMask JumpableLayer;
-   
-    
+
+
     void Update()
     {
 
@@ -40,9 +42,9 @@ public class PlayerMovement : MonoBehaviour
         transform.Translate(walkVector * Time.deltaTime * 10);
 
         isGrounded = false;
-        if(Physics.Raycast(transform.position, Vector3.down, CheckDistance, JumpableLayer))
+        if (Physics.Raycast(transform.position, Vector3.down, CheckDistance, JumpableLayer))
         {
-            isGrounded = true; 
+            isGrounded = true;
         }
     }
 
@@ -55,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = false;
         rb = GetComponent<Rigidbody>();
         CheckDistance = 1f;
-        
+
     }
 
     private void Jump_performed(InputAction.CallbackContext context)
@@ -66,9 +68,11 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(transform.up * 5, ForceMode.Impulse);
         }
     }
-      
 
-
+    void Awake()
+    {
+        Instance = this;
+    }
 
 
 }
