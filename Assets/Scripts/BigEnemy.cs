@@ -4,6 +4,7 @@ public class BigEnemy : MonoBehaviour, ICollidable
 {
     [SerializeField]private float dummyHealth = 45f;
 
+    private const float DummyHealth = 0f;
 
     void ICollidable.OnCollision(BulletScript Bullet)
     {
@@ -13,7 +14,7 @@ public class BigEnemy : MonoBehaviour, ICollidable
 
     public void Update()
     {
-        if (dummyHealth < 0)
+        if (dummyHealth < DummyHealth)
         {
             Destroy(gameObject);
         }
