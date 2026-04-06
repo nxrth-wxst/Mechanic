@@ -26,7 +26,7 @@ public class WaveSystem : MonoBehaviour
 
 
         currentWave++;
-        Debug.Log("Wave " + currentWave + " starting!");
+        Debug.Log("Wave" + currentWave + "starting");
 
 
         int EnemiesToSpawn = enemiesPerWave + (currentWave - 1) * 2;

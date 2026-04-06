@@ -9,15 +9,19 @@ public class EnemyHealth : MonoBehaviour, ICollidable
     void ICollidable.OnCollision(BulletScript Bullet)
     {
         dummyHealth -= Bullet.HMDamage;
+
+        if (dummyHealth < 0)
+        {
+            Dead();
+            Destroy(gameObject);
+            
+        }
+
     }
 
     public void Update()
     {
-      if(dummyHealth < 0)
-        {
-            Destroy(gameObject);
-            Dead();
-        }
+     
     }
 
     public void SetWaveManager(WaveSystem Manager)
