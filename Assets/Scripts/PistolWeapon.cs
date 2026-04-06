@@ -4,8 +4,8 @@ using static UnityEngine.UI.Image;
 
 public class PistolWeapon : MonoBehaviour, IBullet
 {
-    public GameObject PistolBullet;
-    public float BulletPower = 6f;
+    [SerializeField] private GameObject PistolBullet;
+    private float BulletPower = 100f;
     private Controls controls;
 
     void IBullet.Shoot(float PistolShoot)

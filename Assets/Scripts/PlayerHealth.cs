@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour, PColliable
@@ -12,18 +13,23 @@ public class PlayerHealth : MonoBehaviour, PColliable
 
     private float currentHealth;
 
-    private void Start()
+    [SerializeField] private GameObject GameOverPanel;
+
+    private const float TimeScalePaused = 0f;
+    private const float TimeScaleNormal = 1f;
+
+    private void Start() //starts with full hp
     {
         currentHealth = maxHealth;
         UpdateSlider();
     }
 
-    public void PlayerCollision(EnemyDamage enemy)
+    public void PlayerCollision(EnemyDamage enemy) //the collision making the slider work
     {
         TakeDamage(enemyContact);
     }
 
-    private void TakeDamage(float amount)
+    private void TakeDamage(float amount) //if the enemy hits player it loses hp
     {
         currentHealth = Mathf.Clamp(currentHealth - amount, HealthStart, maxHealth); UpdateSlider();
 
@@ -33,7 +39,7 @@ public class PlayerHealth : MonoBehaviour, PColliable
         }
     }
 
-    private void UpdateSlider()
+    private void UpdateSlider() //updating the ui 
     {
         if (healthSlider != null)
         {
@@ -41,8 +47,13 @@ public class PlayerHealth : MonoBehaviour, PColliable
         }
     }
 
-    private void Die()
+    private void Die() //if the health is 0, shows gameoverpanel
     {
-        Debug.Log("dead");
+         GameOverPanel.SetActive(true);
+     
+         Time.timeScale = TimeScalePaused;
+         Cursor.lockState = CursorLockMode.None;
+         Cursor.visible = true;
     }
+
 }
