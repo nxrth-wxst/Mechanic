@@ -14,6 +14,9 @@ public class WaveSystem : MonoBehaviour
     private int enemiesAlive = 0;
     private bool waveInProgress = false;
 
+    private const float StartWave = 5;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,7 +25,7 @@ public class WaveSystem : MonoBehaviour
 
     IEnumerator StartNextWave()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(StartWave);
 
 
         currentWave++;

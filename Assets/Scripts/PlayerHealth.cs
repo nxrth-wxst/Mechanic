@@ -7,6 +7,9 @@ public class PlayerHealth : MonoBehaviour, PColliable
     [SerializeField] private float enemyContact = 10f;
     [SerializeField] private Slider healthSlider;
 
+    private const float PlayerHealthZero = 0;
+    private const float HealthStart = 0;
+
     private float currentHealth;
 
     private void Start()
@@ -22,9 +25,9 @@ public class PlayerHealth : MonoBehaviour, PColliable
 
     private void TakeDamage(float amount)
     {
-        currentHealth = Mathf.Clamp(currentHealth - amount, 0f, maxHealth); UpdateSlider();
+        currentHealth = Mathf.Clamp(currentHealth - amount, HealthStart, maxHealth); UpdateSlider();
 
-        if (currentHealth <= 0f)
+        if (currentHealth <= PlayerHealthZero)
         {
             Die();
         }
