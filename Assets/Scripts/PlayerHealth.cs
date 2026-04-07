@@ -8,8 +8,8 @@ public class PlayerHealth : MonoBehaviour, PColliable
     [SerializeField] private float enemyContact = 10f;
     [SerializeField] private Slider healthSlider;
 
-    private const float PlayerHealthZero = 0;
-    private const float HealthStart = 0;
+    private const float playerHealthZero = 0;
+    private const float healthStart = 0;
 
     private float currentHealth;
 
@@ -31,9 +31,9 @@ public class PlayerHealth : MonoBehaviour, PColliable
 
     private void TakeDamage(float amount) //if the enemy hits player it loses hp
     {
-        currentHealth = Mathf.Clamp(currentHealth - amount, HealthStart, maxHealth); UpdateSlider();
+        currentHealth = Mathf.Clamp(currentHealth - amount, healthStart, maxHealth); UpdateSlider();
 
-        if (currentHealth <= PlayerHealthZero)
+        if (currentHealth <= playerHealthZero)
         {
             Die();
         }
@@ -54,6 +54,13 @@ public class PlayerHealth : MonoBehaviour, PColliable
          Time.timeScale = TimeScalePaused;
          Cursor.lockState = CursorLockMode.None;
          Cursor.visible = true;
+    }
+
+    public void RestartGame()
+    {
+        Debug.Log("Button Clicked");
+        Time.timeScale = TimeScaleNormal;
+        SceneManager.LoadScene("MainAriefScene");
     }
 
 }

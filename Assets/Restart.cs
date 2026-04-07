@@ -7,7 +7,8 @@ public class Restart : MonoBehaviour
     public void RestartGame()
     {
         Debug.Log("Button Clicked");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = TimeScaleNormal;
+        SceneManager.LoadScene("MainAriefScene");
     }
 
 }

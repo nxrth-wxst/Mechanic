@@ -17,6 +17,8 @@ public class WeaponEquip : MonoBehaviour
         controls.Player.Enable();
         controls.Player.SwitchWeapon1.performed += SwitchWeapon1_formed;
         controls.Player.SwitchWeapon2.performed += SwitchWeapon2_formed;
+
+
     }
 
     // Update is called once per frame
@@ -42,5 +44,5 @@ public class WeaponEquip : MonoBehaviour
         gun1.SetActive(false);
     }
 
-
+  
 }
