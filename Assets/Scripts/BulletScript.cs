@@ -5,8 +5,8 @@ public class BulletScript : MonoBehaviour
 {
 
 
-    private float Damage;
-    private const float BulletDamage = 1f;
+    private float damage;
+    private const float bulletDamage = 1f;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -34,7 +34,7 @@ public class BulletScript : MonoBehaviour
 
     private void Awake()
     {
-        Damage = BulletDamage;
+        damage = bulletDamage;
     }
 
     private void Update()
@@ -50,7 +50,7 @@ public class BulletScript : MonoBehaviour
 
     public float HMDamage
     {
-       get { return Damage; }
+       get { return damage; }
     }
 
 
