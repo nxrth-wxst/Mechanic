@@ -7,28 +7,57 @@ public class Sprint : MonoBehaviour
     private float stamina;
     private bool isSprinting;
     private Controls controls;
-
+    
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         stamina = 100f;
-        controls = new Controls();
-        controls.Player.Enable();
-        controls.Player.Sprint.performed += Sprint_formed;
+        isSprinting = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+       
         
+ 
     }
 
-
-    private void Sprint_formed(InputAction.CallbackContext context)
+   public bool IsSprinting
     {
-        Debug.Log("issprinting");
+        get { return isSprinting; }
+        private set { isSprinting = value; } 
+    
+    }
+
+    
+    
+    
+    private void Awake()
+    {
+        controls = new Controls();
     }
 
 
+
+    private void OnEnable()
+    {
+        controls.Enable();
+        controls.Player.Sprint.started += OnSprintStarted;
+        controls.Player.Sprint.canceled += OnSprintCanceled;
+    }
+
+
+
+    private void OnSprintStarted(InputAction.CallbackContext context)
+    {
+        isSprinting = true;
+    }
+
+    private void OnSprintCanceled(InputAction.CallbackContext context)
+    {
+        isSprinting = false;
+    }
 
 }
