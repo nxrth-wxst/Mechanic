@@ -35,7 +35,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (controls != null)
         {
-            controls.Player.Jump.performed -= Jump_performed;
+            controls.Player.Jump.performed -= Jump_performed;  // subscribing, not jumping here
+           // anytime the jump action is performed, the Jump_performed method will get called automatically
+
             controls.Player.Disable();
         }
     }
