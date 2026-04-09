@@ -21,6 +21,25 @@ public class PlayerMovement : MonoBehaviour
     private float CheckDistance;
     [SerializeField] private LayerMask JumpableLayer;
 
+  
+    void OnEnable()
+    {
+        if (controls != null)
+        {
+            controls.Player.Enable();
+            controls.Player.Jump.performed += Jump_performed;
+        }
+    }
+
+   
+    void OnDisable()
+    {
+        if (controls != null)
+        {
+            controls.Player.Jump.performed -= Jump_performed;
+            controls.Player.Disable();
+        }
+    }
 
     void Update()
     {
@@ -41,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
             jump = 0.15f;
         }
 
-        // let's POLL!
+     
         Vector2 walkInput = controls.Player.Walk.ReadValue<Vector2>();
         Vector3 walkVector = new Vector3(walkInput.x, 0, walkInput.y);
         transform.Translate(walkVector * Time.deltaTime * speed);
@@ -56,10 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        controls = new Controls();
-        controls.Player.Enable();
-        controls.Player.Jump.performed += Jump_performed; // subscribing, not jumping here
-        // anytime the jump action is performed, the Jump_performed method will get called automatically
+      
         isGrounded = false;
         rb = GetComponent<Rigidbody>();
         CheckDistance = 1f;
@@ -82,7 +98,6 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        controls = new Controls();
     }
-
-
 }

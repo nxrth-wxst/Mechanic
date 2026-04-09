@@ -29,12 +29,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""SwitchWeapon1"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""51520d7b-e619-4402-8aca-7da20dbbf5b6"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""SwitchWeapon2"",

@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.UI.Image;
 
 public class PistolWeapon : MonoBehaviour, IBullet
 {
@@ -8,27 +7,43 @@ public class PistolWeapon : MonoBehaviour, IBullet
     private float BulletPower = 100f;
     private Controls controls;
 
-    void IBullet.Shoot(float PistolShoot)
-    {
-        GameObject Bullet = Instantiate(this.PistolBullet, transform.position, transform.rotation);  //Clones the bullet
-        Rigidbody rb = Bullet.GetComponent<Rigidbody>(); //Rigidbody so the bullet can move
-        rb.AddForce(-transform.forward * BulletPower, ForceMode.Impulse); //bullet launching
-
-     
-    }
-
-    void Start()
+   
+    void Awake()
     {
         controls = new Controls();
+    }
+
+ 
+    void OnEnable()
+    {
         controls.Player.Enable();
         controls.Player.ShootPistol.performed += ShootTheGun;
+    }
 
+  
+    void OnDisable()
+    {
+        controls.Player.ShootPistol.performed -= ShootTheGun;
+        controls.Player.Disable();
     }
 
     private void ShootTheGun(InputAction.CallbackContext context)
     {
-        if (!isActiveAndEnabled) return; 
+   
+        if (PistolBullet == null) return;
+
         IBullet iBullet = GetComponent<IBullet>();
         iBullet.Shoot(BulletPower);
+    }
+
+    public void Shoot(float power) 
+    {
+        GameObject Bullet = Instantiate(PistolBullet, transform.position, transform.rotation);
+        Rigidbody rb = Bullet.GetComponent<Rigidbody>();
+
+        if (rb != null)
+        {
+            rb.AddForce(-transform.forward * power, ForceMode.Impulse);
+        }
     }
 }

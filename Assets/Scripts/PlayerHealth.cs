@@ -7,13 +7,12 @@ public class PlayerHealth : MonoBehaviour, PColliable
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float enemyContact = 10f;
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private GameObject GameOverPanel;
 
     private const float playerHealthZero = 0;
     private const float healthStart = 0;
 
     private float currentHealth;
-
-    [SerializeField] private GameObject GameOverPanel;
 
     private const float TimeScalePaused = 0f;
     private const float TimeScaleNormal = 1f;
@@ -33,7 +32,7 @@ public class PlayerHealth : MonoBehaviour, PColliable
     {
         currentHealth = Mathf.Clamp(currentHealth - amount, healthStart, maxHealth); UpdateSlider();
 
-        if (currentHealth <= playerHealthZero)
+        if (currentHealth <= playerHealthZero) 
         {
             Die();
         }
@@ -56,10 +55,9 @@ public class PlayerHealth : MonoBehaviour, PColliable
          Cursor.visible = true;
     }
 
-    public void RestartGame()
+    public void RestartGame() //Game over Panel shows when the player dies
     {
-        Debug.Log("Button Clicked");
-        Time.timeScale = TimeScaleNormal;
+        Time.timeScale = TimeScaleNormal; //unfreezes the camera.
         SceneManager.LoadScene("MainAriefScene");
     }
 
