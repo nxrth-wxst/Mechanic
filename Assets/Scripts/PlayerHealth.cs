@@ -32,7 +32,7 @@ public class PlayerHealth : MonoBehaviour, PColliable
     {
         currentHealth = Mathf.Clamp(currentHealth - amount, healthStart, maxHealth); UpdateSlider();
 
-        if (currentHealth <= playerHealthZero)
+        if (currentHealth <= playerHealthZero) 
         {
             Die();
         }
@@ -55,10 +55,9 @@ public class PlayerHealth : MonoBehaviour, PColliable
          Cursor.visible = true;
     }
 
-    public void RestartGame()
+    public void RestartGame() //Game over Panel shows when the player dies
     {
-        Debug.Log("Button Clicked");
-        Time.timeScale = TimeScaleNormal;
+        Time.timeScale = TimeScaleNormal; //unfreezes the camera.
         SceneManager.LoadScene("MainAriefScene");
     }
 
