@@ -7,13 +7,12 @@ public class PlayerHealth : MonoBehaviour, PColliable
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float enemyContact = 10f;
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private GameObject GameOverPanel;
 
     private const float playerHealthZero = 0;
     private const float healthStart = 0;
 
     private float currentHealth;
-
-    [SerializeField] private GameObject GameOverPanel;
 
     private const float TimeScalePaused = 0f;
     private const float TimeScaleNormal = 1f;
