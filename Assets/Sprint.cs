@@ -4,24 +4,15 @@ using UnityEngine.InputSystem;
 public class Sprint : MonoBehaviour
 {
     private int runSpeed;
-    private float stamina;
-    private bool isSprinting;
+   [SerializeField] private bool isSprinting;
     private Controls controls;
-    
+    private Stamina stamina;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        stamina = 100f;
         isSprinting = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-        
- 
+        stamina = GetComponent<Stamina>();
     }
 
    public bool IsSprinting
@@ -31,9 +22,15 @@ public class Sprint : MonoBehaviour
     
     }
 
-    
-    
-    
+    private void Update()
+    {
+        if (stamina.Stam == 0f)
+        {
+            isSprinting = false;
+        }
+    }
+
+
     private void Awake()
     {
         controls = new Controls();
@@ -52,12 +49,17 @@ public class Sprint : MonoBehaviour
 
     private void OnSprintStarted(InputAction.CallbackContext context)
     {
-        isSprinting = true;
+        
+            isSprinting = true;
+
+        
     }
 
     private void OnSprintCanceled(InputAction.CallbackContext context)
     {
-        isSprinting = false;
+        
+            isSprinting = false;
+        
     }
 
 }

@@ -1839,6 +1839,7 @@ GameObject:
   - component: {fileID: 898230739}
   - component: {fileID: 898230738}
   - component: {fileID: 898230745}
+  - component: {fileID: 898230746}
   m_Layer: 0
   m_Name: Player (1)
   m_TagString: Untagged
@@ -1892,7 +1893,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gun1: {fileID: 960994883}
   gun2: {fileID: 1632730969}
-  gun3: {fileID: 0}
 --- !u!54 &898230740
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1932,9 +1932,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c887004ba228ef84e8fa162b39a83258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseSpeed: 5
   playerPhysics: {fileID: 898230740}
   timer: 0
-  JumpableLayer:
+  isGrounded: 0
+  jumped: 0
+  jumpableLayer:
     serializedVersion: 2
     m_Bits: 64
 --- !u!136 &898230742
@@ -2025,6 +2028,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb29143b9931a264fb0318fd99735c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSprinting: 0
+--- !u!114 &898230746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898230736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25fc421e6d20114994a96a3eb8a7bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stamina: 0
 --- !u!1 &909727259
 GameObject:
   m_ObjectHideFlags: 0
@@ -2154,8 +2171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73e9a301edf833e4080395f70f28a4a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet: {fileID: 2989264373236439713, guid: dbc0ced34215d264e90eb1ac2ca3628b, type: 3}
-  BulletPower: 100
+  bullet: {fileID: 0}
+  bulletpower: 6
 --- !u!1001 &1056043644
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3091,7 +3108,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1413596458
 MonoBehaviour:
   m_ObjectHideFlags: 0
