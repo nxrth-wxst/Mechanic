@@ -2171,8 +2171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73e9a301edf833e4080395f70f28a4a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
-  bulletpower: 6
+  bullet: {fileID: 2989264373236439713, guid: dbc0ced34215d264e90eb1ac2ca3628b, type: 3}
+  bulletpower: 100
 --- !u!1001 &1056043644
 PrefabInstance:
   m_ObjectHideFlags: 0
