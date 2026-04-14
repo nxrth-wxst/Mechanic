@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float baseSpeed = 5f;
     private float jump = 5f;
     [SerializeField] private Rigidbody playerPhysics;
-    [SerializeField] private float timer = 0f;
+    private float jumpTimer = 0f;
 
 
     [Header("CoreComponents")]
@@ -26,9 +26,8 @@ public class PlayerMovement : MonoBehaviour
     private Stamina stamina;
     
     [Header("JumpSettings")]
-    [SerializeField] private bool isGrounded;
+    private bool isGrounded;
     private float checkDistance;
-    [SerializeField] private bool jumped;
     [SerializeField] private LayerMask jumpableLayer;
     private float checkJumpTime = 0.50f;
   
@@ -55,12 +54,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        timer = Mathf.Clamp(timer, 0f, 12f);
+        jumpTimer = Mathf.Clamp(jumpTimer, 0f, 12f);
 
-        if (timer < checkJumpTime)
-        {
-            jumped = false;
-        }
+        
         
         
         if (sprint.IsSprinting)
@@ -82,13 +78,13 @@ public class PlayerMovement : MonoBehaviour
         } 
         
         
-        if (timer > 0f)
+        if (jumpTimer > 0f)
         {
             StartCoroutine(Jumped());
             jump = 0.60f;
-            timer -= (Time.deltaTime * 1f);
+            jumpTimer -= (Time.deltaTime * 1f);
         }
-        if (timer < 0f)
+        if (jumpTimer < 0f)
         {
             if (baseSpeed > 5)
             {
@@ -157,26 +153,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump_performed(InputAction.CallbackContext context)
     {
-        jumped = true;
+        
         if (isGrounded == true)
         {
             if (stamina.Stam >= 30f) 
             {
-                if (timer < 0.1f)
+                if (jumpTimer < 0.1f)
                 {
                     rb.AddForce(transform.up * 5, ForceMode.Impulse);
                     isGrounded = false;
-                    timer += 1.65f;
+                    jumpTimer += 1.65f;
                 }
             }
         }
     }
 
-    public bool JumpedCheck
-    {
-        get { return jumped; }
-        private set { jumped = value; }
-    }
     
     public bool GroundedCheck
     {
@@ -184,7 +175,13 @@ public class PlayerMovement : MonoBehaviour
         private set { isGrounded = value; }
     }
     
-    
+    public float JumpTimer
+    {
+        get { return jumpTimer; }
+        private set {  jumpTimer = value; }
+    }
+
+
     
     void Awake()
     {

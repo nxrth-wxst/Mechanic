@@ -14,6 +14,7 @@ public class Stamina : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+       jumpDrained = false;
         playerMovement = GetComponent<PlayerMovement>();
         sprint = GetComponent<Sprint>();
         stamina = 100f;
@@ -34,16 +35,18 @@ public class Stamina : MonoBehaviour
         }
 
         stamina = Mathf.Clamp(stamina, 0f, 100f);
-  
-        if (playerMovement.JumpedCheck && !jumpDrained)
+
+        if (playerMovement.JumpTimer > 0 && !jumpDrained)
         {
            jumpDrained = true;
             stamina -= 15f;
+            startRegen = false;
         }
 
-        if (!playerMovement.JumpedCheck && Stam >= 15f && !playerMovement.GroundedCheck)
+        if (playerMovement.JumpTimer == 0f && Stam >= 15f)
         {
             jumpDrained = false;
+            
         }
     }
 
@@ -53,7 +56,7 @@ public class Stamina : MonoBehaviour
         startRegen = true;
         Debug.Log("isnotsprinting");
         yield return new WaitForSeconds(1.5f);
-        while (stamina < 100 && !sprint.IsSprinting)
+        while (stamina < 100 && !sprint.IsSprinting && playerMovement.JumpTimer == 0)
         {
             stamina += staminaRegen;
             yield return null;
