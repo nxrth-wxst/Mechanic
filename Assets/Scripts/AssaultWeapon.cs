@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,7 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
     [SerializeField] private GameObject bullet;
     [SerializeField] private float bulletpower = 6f;
     private Controls controls;
+    public event EventHandler OnFire;
 
    
     void Awake()
@@ -33,6 +35,7 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
         if (iBullet != null)
         {
             iBullet.Shoot(bulletpower);
+            OnFire?.Invoke(this,EventArgs.Empty);
         }
     }
 

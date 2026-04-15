@@ -1850,8 +1850,9 @@ GameObject:
   m_Component:
   - component: {fileID: 468512764}
   - component: {fileID: 468512765}
+  - component: {fileID: 468512766}
   m_Layer: 0
-  m_Name: gunShot
+  m_Name: gunAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1969,6 +1970,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &468512766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468512763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c2fb5ef3d11ed641a0358651be65664, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assaultWeaponOriginal: {fileID: 703601464}
+  assaultAudioSource: {fileID: 0}
 --- !u!1 &477713037
 GameObject:
   m_ObjectHideFlags: 0
