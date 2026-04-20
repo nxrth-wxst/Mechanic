@@ -27,12 +27,6 @@ public class PlayerHealth : MonoBehaviour, PColliable
     {
         TakeDamage(enemyContact);
     }
-
-   
-
-
-
-
     private void TakeDamage(float amount) //if the enemy hits player it loses hp
     {
         currentHealth = Mathf.Clamp(currentHealth - amount, healthStart, maxHealth); UpdateSlider();

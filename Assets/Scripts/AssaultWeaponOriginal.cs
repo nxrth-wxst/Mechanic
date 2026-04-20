@@ -8,7 +8,7 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
     [SerializeField] private float bulletpower = 6f;
     [SerializeField] private float fireRate = 0.1f;
     private Controls controls;
-    private bool isShooting = false;
+    private bool isShooting = true;
     private float nextFire;
     public event EventHandler OnFire;
 
@@ -42,15 +42,6 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
     {
         isShooting = false;
     }
-    //private void ShootTheGun(InputAction.CallbackContext context)
-    //{
-    //    IBullet iBullet = GetComponent<IBullet>();
-    //    if (iBullet != null)
-    //    {
-    //        iBullet.Shoot(bulletpower);
-    //        OnFire?.Invoke(this,EventArgs.Empty);
-    //    }
-    //}
 
     private void Update()
     {
