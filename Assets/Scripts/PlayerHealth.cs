@@ -23,10 +23,15 @@ public class PlayerHealth : MonoBehaviour, PColliable
         UpdateSlider();
     }
 
-    public void PlayerCollision(EnemyDamage enemy) //the collision making the slider work
+    public void PlayerCollision(EnemyAI enemy) //the collision making the slider work
     {
         TakeDamage(enemyContact);
     }
+
+   
+
+
+
 
     private void TakeDamage(float amount) //if the enemy hits player it loses hp
     {

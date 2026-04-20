@@ -7,11 +7,10 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
     [SerializeField] private GameObject bullet;
     [SerializeField] private float bulletpower = 6f;
     private Controls controls;
-<<<<<<< HEAD
+
     private bool isShooting = false;
-=======
     public event EventHandler OnFire;
->>>>>>> c62878ce864e1f31565d66e861b9c40bb6b3d703
+
 
     void Awake()
     {

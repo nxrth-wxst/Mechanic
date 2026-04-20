@@ -4,9 +4,16 @@ public class EnemyAI : MonoBehaviour
 {
     
     private UnityEngine.AI.NavMeshAgent basicEnemy;
-    
-    
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        PColliable pCollidable = other.GetComponent<PColliable>();
+        if (pCollidable != null)
+        {
+            pCollidable.PlayerCollision(this);
+        }
+    }
+  
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
