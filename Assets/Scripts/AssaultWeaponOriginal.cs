@@ -8,26 +8,20 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
     [SerializeField] private float bulletpower = 6f;
     [SerializeField] private float fireRate = 0.1f;
     private Controls controls;
-<<<<<<< HEAD:Assets/Scripts/AssaultWeapon.cs
-
-    private bool isShooting = false;
-    public event EventHandler OnFire;
-=======
     private bool isShooting = false;
     private float nextFire;
     public event EventHandler OnFire;
-    
->>>>>>> 5403befa0db7ab4abad3fc50df5a5fcf0de67a0f:Assets/Scripts/AssaultWeaponOriginal.cs
+
 
 
     void Awake()
     {
         controls = new Controls();
     }
-    
+
     void OnEnable()
     {
-  
+
         controls.Player.Enable();
         controls.Player.ShootAssault.started += OnShootStarted;
         controls.Player.ShootAssault.canceled += OnShootCanceled;
@@ -85,6 +79,7 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
         }
     }
 
-    
+
 
 }
+
