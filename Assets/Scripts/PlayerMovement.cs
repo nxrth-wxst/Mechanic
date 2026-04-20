@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
     private float checkDistance;
     [SerializeField] private LayerMask jumpableLayer;
-    private float checkJumpTime = 0.50f;
+    
   
     void OnEnable()
     {
