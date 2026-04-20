@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,7 +7,7 @@ public class PistolWeapon : MonoBehaviour, IBullet
     [SerializeField] private GameObject Pistol;
     [SerializeField] private float BulletPower = 100f;
     private Controls controls;
-
+    public event EventHandler OnClick;
    
     void Awake()
     {
@@ -40,7 +41,7 @@ public class PistolWeapon : MonoBehaviour, IBullet
     {
         GameObject Bullet = Instantiate(Pistol, transform.position, transform.rotation);
         Rigidbody rb = Bullet.GetComponent<Rigidbody>();
-
+        OnClick?.Invoke(this,EventArgs.Empty);
         if (rb != null)
         {
             rb.AddForce(-transform.forward * power, ForceMode.Impulse);
