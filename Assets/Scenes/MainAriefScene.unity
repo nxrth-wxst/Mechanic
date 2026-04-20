@@ -1706,9 +1706,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSpeed: 5
   playerPhysics: {fileID: 651674594}
-  timer: 0
-  isGrounded: 0
-  jumped: 0
   jumpableLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -2795,7 +2792,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da5b8e7bbd25fe54bba43c63c4b72fa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PistolBullet: {fileID: 2989264373236439713, guid: 80e6e953d94ba474580a865c59b3a920, type: 3}
+  Pistol: {fileID: 6681766636307311056, guid: d86ac54c80bc64d4da120230a87a4110, type: 3}
+  BulletPower: 100
 --- !u!4 &1185826040 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4952727429218122, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
@@ -4124,8 +4122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73e9a301edf833e4080395f70f28a4a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 2989264373236439713, guid: dbc0ced34215d264e90eb1ac2ca3628b, type: 3}
+  Assault: {fileID: 2989000923634411228, guid: 44cdcd55c8562cc46b31e272eb09fc5b, type: 3}
   bulletpower: 100
+  fireRate: 0.1
 --- !u!1 &1938905811
 GameObject:
   m_ObjectHideFlags: 0

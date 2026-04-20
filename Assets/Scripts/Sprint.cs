@@ -51,8 +51,6 @@ public class Sprint : MonoBehaviour
     {
         
             isSprinting = true;
-
-        
     }
 
     private void OnSprintCanceled(InputAction.CallbackContext context)

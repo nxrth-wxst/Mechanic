@@ -1035,7 +1035,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da5b8e7bbd25fe54bba43c63c4b72fa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PistolBullet: {fileID: 2989264373236439713, guid: 80e6e953d94ba474580a865c59b3a920, type: 3}
+  Pistol: {fileID: 2989264373236439713, guid: 80e6e953d94ba474580a865c59b3a920, type: 3}
+  BulletPower: 100
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1883,8 +1884,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 611d50cda738c6640abb317af5512053, type: 3}
+  m_Resource: {fileID: 8300000, guid: 611d50cda738c6640abb317af5512053, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1983,7 +1984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   assaultWeaponOriginal: {fileID: 703601464}
-  assaultAudioSource: {fileID: 0}
+  assaultAudioSource: {fileID: 468512765}
 --- !u!1 &477713037
 GameObject:
   m_ObjectHideFlags: 0
@@ -2502,10 +2503,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Restart, Assembly-CSharp
-        m_MethodName: RestartGame
-        m_Mode: 1
+      - m_Target: {fileID: 11500000, guid: e2ef925b4dedc6847bd7d186b30aebf9, type: 3}
+        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
+        m_MethodName: set_name
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3001,8 +3002,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73e9a301edf833e4080395f70f28a4a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 2989264373236439713, guid: dbc0ced34215d264e90eb1ac2ca3628b, type: 3}
+  Assault: {fileID: 2989264373236439713, guid: dbc0ced34215d264e90eb1ac2ca3628b, type: 3}
   bulletpower: 6
+  fireRate: 0.1
 --- !u!1 &724077660
 GameObject:
   m_ObjectHideFlags: 0
@@ -4828,7 +4830,7 @@ GameObject:
   - component: {fileID: 1516889002}
   - component: {fileID: 1516889001}
   - component: {fileID: 1516889000}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5074,6 +5076,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1582969347}
   - component: {fileID: 1582969348}
+  - component: {fileID: 1582969349}
   m_Layer: 0
   m_Name: gunBurst
   m_TagString: Untagged
@@ -5106,8 +5109,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: f20f2e419bd73b94b8b658ac754a48df, type: 3}
+  m_Resource: {fileID: 8300000, guid: f20f2e419bd73b94b8b658ac754a48df, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -5193,6 +5196,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1582969349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582969346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36da77e2a3f94e4b940d63dcb9bf0d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Pistolsound: {fileID: 311653606}
+  audioSource: {fileID: 1582969348}
 --- !u!1 &1614095193
 GameObject:
   m_ObjectHideFlags: 0
@@ -5317,6 +5334,8 @@ GameObject:
   - component: {fileID: 1679458931}
   - component: {fileID: 1679458932}
   - component: {fileID: 1679458933}
+  - component: {fileID: 1679458935}
+  - component: {fileID: 1679458934}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -5489,7 +5508,33 @@ MonoBehaviour:
   maxHealth: 100
   enemyContact: 10
   healthSlider: {fileID: 420320487}
-  GameOverPanel: {fileID: 0}
+  GameOverPanel: {fileID: 363317214}
+--- !u!114 &1679458934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679458924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25fc421e6d20114994a96a3eb8a7bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stamina: 0
+--- !u!114 &1679458935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679458924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb29143b9931a264fb0318fd99735c0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSprinting: 0
 --- !u!1 &1695139403
 GameObject:
   m_ObjectHideFlags: 0
@@ -5746,7 +5791,7 @@ GameObject:
   - component: {fileID: 1796318612}
   - component: {fileID: 1796318611}
   - component: {fileID: 1796318610}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

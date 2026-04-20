@@ -1,12 +1,13 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PistolWeapon : MonoBehaviour, IBullet
 {
-    [SerializeField] private GameObject PistolBullet;
-    private float BulletPower = 100f;
+    [SerializeField] private GameObject Pistol;
+    [SerializeField] private float BulletPower = 100f;
     private Controls controls;
-
+    public event EventHandler OnClick;
    
     void Awake()
     {
@@ -30,7 +31,7 @@ public class PistolWeapon : MonoBehaviour, IBullet
     private void ShootTheGun(InputAction.CallbackContext context)
     {
    
-        if (PistolBullet == null) return;
+        if (Pistol == null) return;
 
         IBullet iBullet = GetComponent<IBullet>();
         iBullet.Shoot(BulletPower);
@@ -38,9 +39,9 @@ public class PistolWeapon : MonoBehaviour, IBullet
 
     public void Shoot(float power) 
     {
-        GameObject Bullet = Instantiate(PistolBullet, transform.position, transform.rotation);
+        GameObject Bullet = Instantiate(Pistol, transform.position, transform.rotation);
         Rigidbody rb = Bullet.GetComponent<Rigidbody>();
-
+        OnClick?.Invoke(this,EventArgs.Empty);
         if (rb != null)
         {
             rb.AddForce(-transform.forward * power, ForceMode.Impulse);
