@@ -11,7 +11,7 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
     private bool isShooting = true;
     private float nextFire;
     public event EventHandler OnFire;
-
+    public ParticleSystem muzzleFlash;
 
 
     void Awake()
