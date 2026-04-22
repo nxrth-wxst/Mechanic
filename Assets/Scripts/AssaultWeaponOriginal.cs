@@ -11,8 +11,8 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
     private bool isShooting = true;
     private float nextFire;
     public event EventHandler OnFire;
-    public ParticleSystem muzzleFlash;
-
+    public ParticleSystem muzzleFlash;  //gets the particlesystem in the gun
+    
 
     void Awake()
     {
@@ -60,7 +60,7 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
     {
         if (Assault == null) return;
         OnFire?.Invoke(this, EventArgs.Empty);
-
+        muzzleFlash.Play();
         GameObject BulletInstance = Instantiate(Assault, transform.position, transform.rotation);
         Rigidbody rb = BulletInstance.GetComponent<Rigidbody>();
 

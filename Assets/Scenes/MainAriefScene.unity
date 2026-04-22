@@ -8962,7 +8962,7 @@ MonoBehaviour:
   Assault: {fileID: 2989000923634411228, guid: 44cdcd55c8562cc46b31e272eb09fc5b, type: 3}
   bulletpower: 100
   fireRate: 0.1
-  muzzleFlash: {fileID: 0}
+  muzzleFlash: {fileID: 1805575992}
 --- !u!1 &1938905811
 GameObject:
   m_ObjectHideFlags: 0
