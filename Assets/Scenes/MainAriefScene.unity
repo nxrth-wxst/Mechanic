@@ -456,6 +456,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1487774384131766, guid: ee329c3cd08e58645834d20702d7f6c6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1915977149}
+    - targetCorrespondingSourceObject: {fileID: 1487774384131766, guid: ee329c3cd08e58645834d20702d7f6c6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1915977150}
   m_SourcePrefab: {fileID: 100100000, guid: ee329c3cd08e58645834d20702d7f6c6, type: 3}
 --- !u!1 &164555377
 GameObject:
@@ -8962,7 +8965,20 @@ MonoBehaviour:
   Assault: {fileID: 2989000923634411228, guid: 44cdcd55c8562cc46b31e272eb09fc5b, type: 3}
   bulletpower: 100
   fireRate: 0.1
+--- !u!114 &1915977150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915977147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da74b4bc999e5fc468c156645c0408c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   muzzleFlash: {fileID: 1805575992}
+  assaultWeaponOriginal: {fileID: 1915977149}
 --- !u!1 &1938905811
 GameObject:
   m_ObjectHideFlags: 0
