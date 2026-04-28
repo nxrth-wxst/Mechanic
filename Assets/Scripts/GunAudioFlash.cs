@@ -1,13 +1,16 @@
 using UnityEngine;
 
 public class GunAudioFlash : MonoBehaviour
-{
+{   [Header("particle")]
+    [SerializeField] private ParticleSystem pistolFlash;
     [SerializeField] private ParticleSystem muzzleFlash;  //gets the particlesystem in the script
+    [Header("gunscripts")]
     [SerializeField] private AssaultWeaponOriginal assaultWeaponOriginal;
     [SerializeField] private PistolWeapon Pistolsound;
+    [Header("audio")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioSource assaultAudioSource;
-    [SerializeField] private ParticleSystem pistolFlash;
+   
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
