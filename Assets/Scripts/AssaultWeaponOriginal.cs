@@ -12,7 +12,7 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
     private float nextFire;
     public event EventHandler OnFire;
 
-    public ParticleSystem muzzleFlash;  //gets the particlesystem in the gun
+   // public ParticleSystem muzzleFlash;  //gets the particlesystem in the gun
     
     void Awake()
     {
