@@ -9800,7 +9800,7 @@ Transform:
   m_GameObject: {fileID: 1805575989}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.99632525, z: -0, w: 0.08565073}
-  m_LocalPosition: {x: 0.010999904, y: -0.016999988, z: -0.17000002}
+  m_LocalPosition: {x: 0.028, y: -0.016999988, z: -0.269}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14631,7 +14631,6 @@ MonoBehaviour:
   Assault: {fileID: 2989000923634411228, guid: 44cdcd55c8562cc46b31e272eb09fc5b, type: 3}
   bulletpower: 100
   fireRate: 0.1
-  muzzleFlash: {fileID: 0}
 --- !u!114 &1915977150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15070,7 +15069,6 @@ MonoBehaviour:
   Assault: {fileID: 2989264373236439713, guid: dbc0ced34215d264e90eb1ac2ca3628b, type: 3}
   bulletpower: 100
   fireRate: 0.1
-  muzzleFlash: {fileID: 0}
 --- !u!114 &2007116319
 MonoBehaviour:
   m_ObjectHideFlags: 0
