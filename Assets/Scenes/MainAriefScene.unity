@@ -314,7 +314,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 62ed8709a63bff84aa15eee7acbd0c6d, type: 3}
   m_Resource: {fileID: 8300000, guid: 62ed8709a63bff84aa15eee7acbd0c6d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -426,7 +426,7 @@ Transform:
   m_GameObject: {fileID: 74765147}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.99632525, z: -0, w: 0.08565072}
-  m_LocalPosition: {x: 0.011, y: -0.017, z: -0.17}
+  m_LocalPosition: {x: 0.0025, y: -0.017, z: -0.4526}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14631,7 +14631,6 @@ MonoBehaviour:
   Assault: {fileID: 2989000923634411228, guid: 44cdcd55c8562cc46b31e272eb09fc5b, type: 3}
   bulletpower: 100
   fireRate: 0.1
-  muzzleFlash: {fileID: 0}
 --- !u!114 &1915977150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14960,7 +14959,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 50848ed3018e3a84eb63d28a68a402e2, type: 3}
   m_Resource: {fileID: 8300000, guid: 50848ed3018e3a84eb63d28a68a402e2, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -15070,7 +15069,6 @@ MonoBehaviour:
   Assault: {fileID: 2989264373236439713, guid: dbc0ced34215d264e90eb1ac2ca3628b, type: 3}
   bulletpower: 100
   fireRate: 0.1
-  muzzleFlash: {fileID: 0}
 --- !u!114 &2007116319
 MonoBehaviour:
   m_ObjectHideFlags: 0

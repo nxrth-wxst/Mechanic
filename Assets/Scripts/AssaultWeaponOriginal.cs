@@ -8,7 +8,7 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
     [SerializeField] private float bulletpower = 6f;
     [SerializeField] private float fireRate = 0.1f;
     private Controls controls;
-    private bool isShooting = true;
+    private bool isShooting = false;
     private float nextFire;
     public event EventHandler OnFire;
 
@@ -18,7 +18,6 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
     {
         controls = new Controls();
     }
-
     void OnEnable()
     {
 
@@ -26,11 +25,13 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
         controls.Player.ShootAssault.started += OnShootStarted;
         controls.Player.ShootAssault.canceled += OnShootCanceled;
     }
+
     void OnDisable()
     {
+        controls.Player.Disable();
         controls.Player.ShootAssault.started -= OnShootStarted;
         controls.Player.ShootAssault.canceled -= OnShootCanceled;
-        controls.Player.Disable();
+
     }
 
     private void OnShootStarted(InputAction.CallbackContext context)
