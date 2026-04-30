@@ -233,17 +233,13 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-<<<<<<< HEAD
 
-=======
->>>>>>> 36bb7e1173e6eca7485c7a47a7f3276b451d6a16
                     ""id"": ""197a76ec-c289-4d2b-b9f1-5c35388c5d62"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interaction"",
-<<<<<<< HEAD
 
                     ""id"": ""6f485e43-fc2f-4b45-aa03-361edeb6a85f"",
                     ""path"": ""<Keyboard>/3"",
@@ -252,8 +248,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""groups"": """",
                     ""action"": ""SwitchWeapon3"",
 
-=======
->>>>>>> 36bb7e1173e6eca7485c7a47a7f3276b451d6a16
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
