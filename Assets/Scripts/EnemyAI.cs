@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class EnemyAI : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= updateTargetInterval)
         {
-            basicEnemy.SetDestination(target.position);
+            basicEnemy = GetComponent<NavMeshAgent>();
             timer = 0f;
         }
     }
