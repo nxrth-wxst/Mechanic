@@ -8911,7 +8911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0909fd110e0b004489935f00d88cb54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy1Prefab: {fileID: 8359592997367025423, guid: 73e03b053b0912848836a5ac9a35d0f8, type: 3}
+  enemy1Prefab: {fileID: 1589497994}
   spawnPoints:
   - {fileID: 1606894510}
   - {fileID: 94425598}
@@ -8934,6 +8934,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1589497994 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8359592997367025423, guid: 73e03b053b0912848836a5ac9a35d0f8, type: 3}
+  m_PrefabInstance: {fileID: 367079392}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1606894506
 GameObject:
   m_ObjectHideFlags: 0
