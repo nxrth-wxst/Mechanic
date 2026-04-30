@@ -8,17 +8,16 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
     [SerializeField] private float bulletpower = 6f;
     [SerializeField] private float fireRate = 0.1f;
     private Controls controls;
-    private bool isShooting = true;
+    private bool isShooting = false;
     private float nextFire;
     public event EventHandler OnFire;
 
-
-
+   // public ParticleSystem muzzleFlash;  //gets the particlesystem in the gun
+    
     void Awake()
     {
         controls = new Controls();
     }
-
     void OnEnable()
     {
 
@@ -26,11 +25,13 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
         controls.Player.ShootAssault.started += OnShootStarted;
         controls.Player.ShootAssault.canceled += OnShootCanceled;
     }
+
     void OnDisable()
     {
+        controls.Player.Disable();
         controls.Player.ShootAssault.started -= OnShootStarted;
         controls.Player.ShootAssault.canceled -= OnShootCanceled;
-        controls.Player.Disable();
+
     }
 
     private void OnShootStarted(InputAction.CallbackContext context)
@@ -60,7 +61,7 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
     {
         if (Assault == null) return;
         OnFire?.Invoke(this, EventArgs.Empty);
-
+       // muzzleFlash.Play();
         GameObject BulletInstance = Instantiate(Assault, transform.position, transform.rotation);
         Rigidbody rb = BulletInstance.GetComponent<Rigidbody>();
 
@@ -69,8 +70,8 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
             rb.AddForce(-transform.forward * BulletPower, ForceMode.Impulse);
         }
     }
-    //Physics.Raycast and transform.forward
 
+    //Physics.Raycast and transform.forward
 
 }
 

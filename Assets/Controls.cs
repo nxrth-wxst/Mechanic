@@ -46,6 +46,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""SwitchWeapon3"",
+                    ""type"": ""Button"",
+                    ""id"": ""fbfd85bb-a73b-411b-a92c-4dfe5b3d11e9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Walk"",
                     ""type"": ""Value"",
                     ""id"": ""cfdb2372-fcb8-47e0-9149-d55037810401"",
@@ -224,12 +233,21 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+<<<<<<< HEAD
                     ""id"": ""197a76ec-c289-4d2b-b9f1-5c35388c5d62"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interaction"",
+=======
+                    ""id"": ""6f485e43-fc2f-4b45-aa03-361edeb6a85f"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchWeapon3"",
+>>>>>>> 2bed753537f5c6b43453e5050595045818c1d7e2
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -242,6 +260,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_SwitchWeapon1 = m_Player.FindAction("SwitchWeapon1", throwIfNotFound: true);
         m_Player_SwitchWeapon2 = m_Player.FindAction("SwitchWeapon2", throwIfNotFound: true);
+        m_Player_SwitchWeapon3 = m_Player.FindAction("SwitchWeapon3", throwIfNotFound: true);
         m_Player_Walk = m_Player.FindAction("Walk", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_ShootAssault = m_Player.FindAction("ShootAssault", throwIfNotFound: true);
@@ -316,6 +335,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_SwitchWeapon1;
     private readonly InputAction m_Player_SwitchWeapon2;
+    private readonly InputAction m_Player_SwitchWeapon3;
     private readonly InputAction m_Player_Walk;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_ShootAssault;
@@ -328,6 +348,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public PlayerActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @SwitchWeapon1 => m_Wrapper.m_Player_SwitchWeapon1;
         public InputAction @SwitchWeapon2 => m_Wrapper.m_Player_SwitchWeapon2;
+        public InputAction @SwitchWeapon3 => m_Wrapper.m_Player_SwitchWeapon3;
         public InputAction @Walk => m_Wrapper.m_Player_Walk;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @ShootAssault => m_Wrapper.m_Player_ShootAssault;
@@ -349,6 +370,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @SwitchWeapon2.started += instance.OnSwitchWeapon2;
             @SwitchWeapon2.performed += instance.OnSwitchWeapon2;
             @SwitchWeapon2.canceled += instance.OnSwitchWeapon2;
+            @SwitchWeapon3.started += instance.OnSwitchWeapon3;
+            @SwitchWeapon3.performed += instance.OnSwitchWeapon3;
+            @SwitchWeapon3.canceled += instance.OnSwitchWeapon3;
             @Walk.started += instance.OnWalk;
             @Walk.performed += instance.OnWalk;
             @Walk.canceled += instance.OnWalk;
@@ -377,6 +401,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @SwitchWeapon2.started -= instance.OnSwitchWeapon2;
             @SwitchWeapon2.performed -= instance.OnSwitchWeapon2;
             @SwitchWeapon2.canceled -= instance.OnSwitchWeapon2;
+            @SwitchWeapon3.started -= instance.OnSwitchWeapon3;
+            @SwitchWeapon3.performed -= instance.OnSwitchWeapon3;
+            @SwitchWeapon3.canceled -= instance.OnSwitchWeapon3;
             @Walk.started -= instance.OnWalk;
             @Walk.performed -= instance.OnWalk;
             @Walk.canceled -= instance.OnWalk;
@@ -416,6 +443,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     {
         void OnSwitchWeapon1(InputAction.CallbackContext context);
         void OnSwitchWeapon2(InputAction.CallbackContext context);
+        void OnSwitchWeapon3(InputAction.CallbackContext context);
         void OnWalk(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnShootAssault(InputAction.CallbackContext context);
