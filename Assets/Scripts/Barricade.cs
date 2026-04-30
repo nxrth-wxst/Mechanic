@@ -1,122 +1,226 @@
-using UnityEngine;
 using System;
-using System.Collections.Generic;
-[RequireComponent(typeof(Collider))]
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.GPUSort;
+
 public class Barricade : MonoBehaviour
 {
+    [SerializeField] private float currentHealth = 100f;
+    private float maxHealth = 100f;
+    [SerializeField] private float emyCooldown;
+    [SerializeField] private float timeBetweenPlanks;
+    [SerializeField] private GameObject[] Boards;
+    private bool canEnter;
+    private bool plrNearBarricade;
+    private bool interacting;
+    private bool allowRepair;
+    private bool startRepair;
+    [SerializeField] private bool emyNearBarricade;
+   
+    
+    public event EventHandler<BarricadeEventArgs> OnDamaged;
+    public event EventHandler<BarricadeEventArgs> OnDestroyed;
+    public event EventHandler<BarricadeEventArgs> OnRepaired;
 
-    public static event EventHandler<BoardDamagedEventArgs> OnBoardDamaged;
-    public static event EventHandler<BoardRepairedEventArgs> OnBoardRepaired;
-    public static event EventHandler<BarricadeEventArgs> OnBoardBroken;
-    public static event EventHandler<BarricadeBrokenEventArgs> OnBarricadeBroken;
-
-    [Header("Board Config")]
-    [SerializeField] private int boardCount = 4;
-    [SerializeField] private float boardMaxHealth = 100f;
-
-    [Header("Visual Boards")]
-    [Tooltip("Assign the GameObject for each board plank in order")]
-    [SerializeField] private List<GameObject> boardVisuals = new();
-
-    private List<Board> _boards = new();
-    private bool _isBroken;
-
-    public bool IsBroken => _isBroken;
-    public int BoardCount => _boards.Count;
-    public int IntactBoards => _boards.FindAll(b => !b.IsBroken).Count;
-
-
+    [SerializeField] private Transform navMeshTarget;
+    public Transform getNavmeshTarget() => navMeshTarget;
+    public static Barricade Instance { get; private set; }
+    private Controls controls;
     private void Awake()
     {
-        InitialiseBoards();
+        currentHealth = maxHealth;
+        canEnter = false;
+        controls = new Controls();
+        Instance = this;
+        
+            
     }
 
-    private void InitialiseBoards()
+    private void OnTriggerEnter(Collider other)
     {
-        _boards.Clear();
-        for (int i = 0; i < boardCount; i++)
-            _boards.Add(new Board(boardMaxHealth));
-        _isBroken = false;
-    }
-
-
-    public void DamageBoard(float damage)
-    {
-        if (_isBroken) return;
-
-        int index = GetFirstIntactBoardIndex();
-        if (index < 0) return;
-
-        Board board = _boards[index];
-        float before = board.CurrentHealth;
-        float actual = board.TakeDamage(damage);
-
-        if (actual <= 0f) return;
-
-        
-        OnBoardDamaged?.Invoke(this,
-            new BoardDamagedEventArgs(index, this, before, board.CurrentHealth));
-
-        
-        if (board.IsBroken)
+        if (other.CompareTag("Player"))
         {
-            SetBoardVisual(index, false);
-            OnBoardBroken?.Invoke(this, new BarricadeEventArgs(index, this));
+            
+             plrNearBarricade = true;
 
-           
-            if (IntactBoards == 0)
+            
+        }
+
+     
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            plrNearBarricade = false;
+        }
+       
+    }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        EnemyAI enemy = other.GetComponent<EnemyAI>();
+        emyNearBarricade = enemy != null;
+    }
+
+
+    private void Update()
+    {
+        timeBetweenPlanks = Mathf.Clamp(timeBetweenPlanks, 0, 0.75f);
+        currentHealth = Mathf.Clamp(currentHealth, 0, 100);
+        emyCooldown = Mathf.Clamp(emyCooldown, 0, 0.35f);
+      
+        if (!allowRepair)
+        {
+            timeBetweenPlanks = 0.75f;
+        }
+
+        if (!emyNearBarricade)
+        {
+            emyCooldown = 0.35f;
+        }
+        
+        if (plrNearBarricade)
+        {
+            controls.Enable();
+        }
+        else
+        {
+            allowRepair = false;
+            controls.Disable();
+         }
+    
+        if (interacting)
+        {
+            if (currentHealth < 100)
             {
-                _isBroken = true;
-                GetComponent<Collider>().enabled = false; 
-                OnBarricadeBroken?.Invoke(this,
-                    new BarricadeBrokenEventArgs(index, this, transform.position));
+                
+                  allowRepair = true;
+                  StartToRepair();
+                
             }
         }
-    }
 
-
-    public bool RepairBoard(int boardIndex)
-    {
-        if (boardIndex < 0 || boardIndex >= _boards.Count) return false;
-
-        Board board = _boards[boardIndex];
-        if (!board.IsBroken) return false;
-
-        float restored = board.Repair(board.MaxHealth); 
-        bool fullRepair = restored > 0f;
-
-        if (fullRepair)
+        if (emyNearBarricade && emyCooldown == 0f)
         {
-            _isBroken = false;
-            GetComponent<Collider>().enabled = true;
-            SetBoardVisual(boardIndex, true);
-
-            OnBoardRepaired?.Invoke(this,
-                new BoardRepairedEventArgs(boardIndex, this, restored, true));
+            doDamage();
         }
 
-        return fullRepair;
+        EmyCooldown(); 
+        UpdateBoards();
+            
+       
+    
     }
 
-    public void ResetBarricade()
+    private void OnEnable()
     {
-        InitialiseBoards();
-        for (int i = 0; i < boardVisuals.Count; i++)
-            SetBoardVisual(i, true);
-        GetComponent<Collider>().enabled = true;
+        controls.Player.Interaction.started += OnInteractionStarted;
+        controls.Player.Interaction.canceled += OnInteractionCanceled;
     }
 
-    private int GetFirstIntactBoardIndex()
+    private void OnDisable()
     {
-        for (int i = 0; i < _boards.Count; i++)
-            if (!_boards[i].IsBroken) return i;
-        return -1;
+        controls.Player.Interaction.started -= OnInteractionStarted;
+        controls.Player.Interaction.canceled -= OnInteractionCanceled;
     }
 
-    private void SetBoardVisual(int index, bool visible)
+
+    private void OnInteractionStarted(InputAction.CallbackContext context)
     {
-        if (index < boardVisuals.Count && boardVisuals[index] != null)
-            boardVisuals[index].SetActive(visible);
+        interacting = true;
     }
+
+    private void OnInteractionCanceled(InputAction.CallbackContext context)
+    {
+        timeBetweenPlanks = 0.75f;
+        startRepair = false;
+        interacting = false;
+    }
+
+
+    private void StartToRepair()
+    {
+        timeBetweenPlanks -= 0.5f * Time.deltaTime;
+        if (timeBetweenPlanks <= 0)
+        {
+            var args = new BarricadeEventArgs
+            {
+                CurrentHealth = currentHealth,
+                MaxHealth = maxHealth,
+               
+            };
+
+
+
+            OnRepaired?.Invoke(this, args);
+            timeBetweenPlanks += 0.75f;
+            currentHealth += 20f;
+            startRepair = true; 
+        }
+    }
+
+    private void UpdateBoards()
+    {
+       
+        if (currentHealth == 0)
+        {
+            SetActiveBoards(0);
+        }
+        else if (currentHealth <= 20f)
+        {
+            SetActiveBoards(1);
+        }
+        else if (currentHealth <= 40f)
+        {
+            SetActiveBoards(2);
+        }
+        else if (currentHealth <= 60f)
+        {
+            SetActiveBoards(3);
+        }
+        else if (currentHealth <= 80f)
+        {
+            SetActiveBoards(4);
+        }
+        else if (currentHealth <= 100f)
+        {
+            SetActiveBoards(5);
+            
+        }
+    }
+
+    private void SetActiveBoards(int count)
+    {
+        for (int i = 0; i < Boards.Length; i++)
+        {
+            Boards[i].SetActive(i < count);
+        }
+    }
+
+    private void EmyCooldown()
+    {
+        if (emyNearBarricade)
+        {
+            emyCooldown -= 0.070f * Time.deltaTime;
+        }
+    }
+
+
+
+    private void doDamage()
+    {
+        currentHealth -= 10f;
+        emyCooldown += 0.35f;
+    }
+
+    
+
 }
+
+
 

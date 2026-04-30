@@ -5,7 +5,7 @@ public class EnemyHealth : MonoBehaviour, ICollidable
 {
     private float dummyHealth = 15f;
     private WaveSystem waveManager;
-
+    
     void ICollidable.OnCollision(BulletScript Bullet)
     {
         dummyHealth -= Bullet.HMDamage;
@@ -33,10 +33,13 @@ public class EnemyHealth : MonoBehaviour, ICollidable
     
     private void Dead()
     {
+      
+        
+        
         if (waveManager != null)
         {
             waveManager.OnEnemyDied();
         }
     }
-
+ 
 }

@@ -69,7 +69,7 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
             rb.AddForce(-transform.forward * BulletPower, ForceMode.Impulse);
         }
     }
-
+    //Physics.Raycast and transform.forward
 
 
 }

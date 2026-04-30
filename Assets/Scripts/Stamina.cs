@@ -54,7 +54,6 @@ public class Stamina : MonoBehaviour
     private IEnumerator WaitForRegen()
     {
         startRegen = true;
-        Debug.Log("isnotsprinting");
         yield return new WaitForSeconds(1.5f);
         while (stamina < 100 && !sprint.IsSprinting && playerMovement.JumpTimer == 0)
         {
