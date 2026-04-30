@@ -233,21 +233,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-<<<<<<< HEAD
                     ""id"": ""197a76ec-c289-4d2b-b9f1-5c35388c5d62"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interaction"",
-=======
-                    ""id"": ""6f485e43-fc2f-4b45-aa03-361edeb6a85f"",
-                    ""path"": ""<Keyboard>/3"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SwitchWeapon3"",
->>>>>>> 2bed753537f5c6b43453e5050595045818c1d7e2
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
