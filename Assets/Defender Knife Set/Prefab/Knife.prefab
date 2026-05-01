@@ -10,7 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 4fc2da717ad692c44b651317cd45c851, type: 3}
       propertyPath: m_Name
-      value: Defender_Knife_low Prefab
+      value: Knife
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4fc2da717ad692c44b651317cd45c851, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4fc2da717ad692c44b651317cd45c851, type: 3}
       propertyPath: m_RootOrder

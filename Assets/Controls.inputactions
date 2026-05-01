@@ -24,15 +24,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SwitchWeapon3",
-                    "type": "Button",
-                    "id": "fbfd85bb-a73b-411b-a92c-4dfe5b3d11e9",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Walk",
                     "type": "Value",
                     "id": "cfdb2372-fcb8-47e0-9149-d55037810401",
@@ -84,6 +75,15 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Hold",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SwitchWeapon3",
+                    "type": "Button",
+                    "id": "4cef2746-e277-49ce-8ab6-55e5ad1f3160",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -217,6 +217,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interaction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40fe5353-f403-420c-b733-645e157e1c01",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchWeapon3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

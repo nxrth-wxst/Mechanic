@@ -51,7 +51,7 @@ public class WeaponEquip : MonoBehaviour
     private void SwitchWeapon3_formed(InputAction.CallbackContext context)
     {
         if (gun3 != null) gun3.SetActive(true);
-        if (gun3 != null) gun1.SetActive(false);
+        if (gun1 != null) gun1.SetActive(false); 
         if (gun2 != null) gun2.SetActive(false);
     }
 }
