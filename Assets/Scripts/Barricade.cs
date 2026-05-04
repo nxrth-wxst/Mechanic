@@ -84,7 +84,7 @@ public class Barricade : MonoBehaviour
             emyCooldown = 0.35f;
         }
         
-        if (plrNearBarricade)
+        if (plrNearBarricade && !emyNearBarricade)
         {
             controls.Enable();
         }
@@ -132,7 +132,9 @@ public class Barricade : MonoBehaviour
 
     private void OnInteractionStarted(InputAction.CallbackContext context)
     {
+        
         interacting = true;
+        
     }
 
     private void OnInteractionCanceled(InputAction.CallbackContext context)
@@ -218,7 +220,13 @@ public class Barricade : MonoBehaviour
         emyCooldown += 0.35f;
     }
 
-    
+    public bool EmyNearBarricade
+    {
+        get { return emyNearBarricade; }
+        private set { emyNearBarricade = value; }   
+    }
+
+
 
 }
 
