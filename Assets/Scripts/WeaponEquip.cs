@@ -39,10 +39,12 @@ public class WeaponEquip : MonoBehaviour
         if (gun1 != null) gun1.SetActive(true);
         if (gun2 != null) gun2.SetActive(false);
         if (gun3 != null) gun3.SetActive(false);
+        Debug.Log("gun 1");
     }
 
     private void SwitchWeapon2_formed(InputAction.CallbackContext context)
     {
+        Debug.Log("gun 2");
         if (gun2 != null) gun2.SetActive(true);
         if (gun1 != null) gun1.SetActive(false);
         if (gun3 != null) gun3.SetActive(false);
@@ -50,8 +52,9 @@ public class WeaponEquip : MonoBehaviour
 
     private void SwitchWeapon3_formed(InputAction.CallbackContext context)
     {
+        Debug.Log("gun 3");
         if (gun3 != null) gun3.SetActive(true);
-        if (gun1 != null) gun1.SetActive(false); 
+        if (gun1 != null) gun1.SetActive(false);
         if (gun2 != null) gun2.SetActive(false);
     }
 }

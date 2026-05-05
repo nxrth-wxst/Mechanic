@@ -24,6 +24,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "SwitchWeapon3",
+                    "type": "Button",
+                    "id": "4cef2746-e277-49ce-8ab6-55e5ad1f3160",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Walk",
                     "type": "Value",
                     "id": "cfdb2372-fcb8-47e0-9149-d55037810401",
@@ -78,9 +87,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SwitchWeapon3",
+                    "name": "Melee",
                     "type": "Button",
-                    "id": "4cef2746-e277-49ce-8ab6-55e5ad1f3160",
+                    "id": "669e75b8-4194-4c58-9a91-18d416e47bb6",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -228,6 +237,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SwitchWeapon3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c761576e-b787-4c0c-8bdf-258726cef78e",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Melee",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
