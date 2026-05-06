@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,8 +9,11 @@ public class EnemyAI : MonoBehaviour
     private float updateTargetInterval = 0.2f;
     private float timer;
     private Animator animator;
-    private Barricade nearestBarricade; 
-
+    private Barricade nearestBarricade;
+    private Coroutine replayCoroutine;
+    
+   
+    
     private void OnTriggerEnter(Collider other)
     {
         PColliable pCollidable = other.GetComponent<PColliable>();
@@ -42,13 +46,51 @@ public class EnemyAI : MonoBehaviour
         if (nearestBarricade != null && nearestBarricade.EmyNearBarricade)
         {
             animator.SetBool("BarricadeAttack", true);
+            if (replayCoroutine == null)
+            {
+                replayCoroutine = StartCoroutine(ReplayAnim());
+            }
         }
         else
         {
-            animator.SetBool("BarricadeAttack", false); 
+           if (replayCoroutine != null)
+           {
+                StopCoroutine(replayCoroutine);
+                replayCoroutine = null;
+           }
+            animator.SetBool("BarricadeAttack", false);
+            animator.SetBool("RefreshAttack", false);
         }
     }
 
+    private IEnumerator ReplayAnim()
+    {
+        while (nearestBarricade != null && nearestBarricade.EmyNearBarricade)
+        {
+            animator.SetBool("BarricadeAttack", false);
+            animator.SetBool("RefreshAttack", true);
+
+            yield return new WaitForSeconds(5.25f);
+
+            animator.SetBool("BarricadeAttack", true);
+            animator.SetBool("RefreshAttack", false);
+
+            yield return new WaitForSeconds(2);
+
+        }
+
+        replayCoroutine = null;
+        animator.SetBool("BarricadeAttack", false);
+        animator.SetBool("RefreshAttack", false);
+
+
+    } 
+    
+    
+    
+    
+    
+    
     private void UpdateNearestBarricade()
     {
         Barricade[] allBarricades = FindObjectsByType<Barricade>(FindObjectsSortMode.None);

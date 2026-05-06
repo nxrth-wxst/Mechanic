@@ -226,8 +226,12 @@ public class Barricade : MonoBehaviour
         private set { emyNearBarricade = value; }   
     }
 
+    public float EmyCoolDown
+    {
+        get { return emyCooldown; }
+        private set { emyCooldown = value; }
 
-
+    }
 }
 
 
