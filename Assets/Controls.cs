@@ -48,7 +48,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""SwitchWeapon3"",
                     ""type"": ""Button"",
-                    ""id"": ""fbfd85bb-a73b-411b-a92c-4dfe5b3d11e9"",
+                    ""id"": ""4cef2746-e277-49ce-8ab6-55e5ad1f3160"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -106,6 +106,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Melee"",
+                    ""type"": ""Button"",
+                    ""id"": ""669e75b8-4194-4c58-9a91-18d416e47bb6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 }
             ],
@@ -233,21 +242,34 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-
                     ""id"": ""197a76ec-c289-4d2b-b9f1-5c35388c5d62"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interaction"",
-
-                    ""id"": ""6f485e43-fc2f-4b45-aa03-361edeb6a85f"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""40fe5353-f403-420c-b733-645e157e1c01"",
                     ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SwitchWeapon3"",
-
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c761576e-b787-4c0c-8bdf-258726cef78e"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Melee"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -267,6 +289,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_ShootPistol = m_Player.FindAction("ShootPistol", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Interaction = m_Player.FindAction("Interaction", throwIfNotFound: true);
+        m_Player_Melee = m_Player.FindAction("Melee", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -342,6 +365,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ShootPistol;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Interaction;
+    private readonly InputAction m_Player_Melee;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -355,6 +379,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @ShootPistol => m_Wrapper.m_Player_ShootPistol;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Interaction => m_Wrapper.m_Player_Interaction;
+        public InputAction @Melee => m_Wrapper.m_Player_Melee;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -391,6 +416,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Interaction.started += instance.OnInteraction;
             @Interaction.performed += instance.OnInteraction;
             @Interaction.canceled += instance.OnInteraction;
+            @Melee.started += instance.OnMelee;
+            @Melee.performed += instance.OnMelee;
+            @Melee.canceled += instance.OnMelee;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -422,6 +450,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Interaction.started -= instance.OnInteraction;
             @Interaction.performed -= instance.OnInteraction;
             @Interaction.canceled -= instance.OnInteraction;
+            @Melee.started -= instance.OnMelee;
+            @Melee.performed -= instance.OnMelee;
+            @Melee.canceled -= instance.OnMelee;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -450,5 +481,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnShootPistol(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
+        void OnMelee(InputAction.CallbackContext context);
     }
 }
