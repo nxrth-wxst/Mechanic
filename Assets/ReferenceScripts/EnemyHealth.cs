@@ -19,11 +19,6 @@ public class EnemyHealth : MonoBehaviour, ICollidable
 
     }
 
-    public void Update()
-    {
-     
-    }
-
     public void SetWaveManager(WaveSystem Manager)
     {
     waveManager = Manager;

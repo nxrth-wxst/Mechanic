@@ -9,7 +9,7 @@ public class Melee : MonoBehaviour
     private Controls controls;
     [SerializeField] private GameObject melee;
     private bool Attack = true;
-    private float AttackCooldown = 0;
+    [SerializeField] private float AttackCooldown = 4;
 
     void Awake()
     {
@@ -39,4 +39,9 @@ public class Melee : MonoBehaviour
         yield return new WaitForSeconds(AttackCooldown);
         Attack = true;
     }
+
+
+
+
+
 }
