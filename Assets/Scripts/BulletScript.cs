@@ -15,7 +15,7 @@ public class BulletScript : MonoBehaviour
         if (collidable != null)
         {
 
-            collidable.OnCollision(this);
+            collidable.OnCollision(damage);
            
             
             

@@ -1,19 +1,20 @@
 using System.Collections;
-using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
-
 public class Melee : MonoBehaviour
 {
     private Controls controls;
     [SerializeField] private GameObject melee;
-    private bool Attack = true;
-    [SerializeField] private float AttackCooldown = 4;
+    private bool canAttack = true;
+    private MeleeHit meleeHitbox;
+
+    private const float AttackCooldown = 1f;
+    private const float AttackWindowCooldown = 0.3f;
 
     void Awake()
     {
         controls = new Controls();
+        meleeHitbox = melee.GetComponent<MeleeHit>();
     }
 
     private void OnEnable()
@@ -25,23 +26,31 @@ public class Melee : MonoBehaviour
     private void OnDisable()
     {
         controls.Player.Disable();
-        controls.Player.Melee.canceled -= MeleeStarted;
+        controls.Player.Melee.started -= MeleeStarted;
     }
 
     private void MeleeStarted(InputAction.CallbackContext context)
     {
-        Attack = false;
+        if (!canAttack) return;
+
+        canAttack = false;
         Animator anim = melee.GetComponent<Animator>();
         anim.SetTrigger("Attack");
+        StartCoroutine(AttackWindow());
+        StartCoroutine(ResetCooldown());
     }
-    IEnumerator ResetCooldown()
+
+   
+    private IEnumerator AttackWindow()
+    {
+        meleeHitbox.SetActive(true);
+        yield return new WaitForSeconds(AttackWindowCooldown);
+        meleeHitbox.SetActive(false);
+    }
+
+    private IEnumerator ResetCooldown()
     {
         yield return new WaitForSeconds(AttackCooldown);
-        Attack = true;
+        canAttack = true;
     }
-
-
-
-
-
 }

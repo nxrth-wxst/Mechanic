@@ -6,10 +6,10 @@ public class BigEnemy : MonoBehaviour, ICollidable
 
     private const float DummyHealth = 0f;
 
-    void ICollidable.OnCollision(BulletScript Bullet)
+    void ICollidable.OnCollision(float damage)
     {
         Debug.Log("bigwashit");
-        dummyHealth -= Bullet.HMDamage;
+        dummyHealth -= damage;
     }
 
     public void Update()
