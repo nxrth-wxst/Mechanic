@@ -6301,7 +6301,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   melee: {fileID: 571918263}
-  AttackCooldown: 4
 --- !u!65 &571918272
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6317,12 +6316,24 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.27658165, y: 0.019187406, z: 0.06012225}
   m_Center: {x: -0.026241625, y: -0.00000011920929, z: 0.0037023472}
+--- !u!114 &571918276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571918263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d64323690cfe86d419f7111f0b39bb73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &597111667
 GameObject:
   m_ObjectHideFlags: 0
@@ -9795,7 +9806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1196746128691319106, guid: 30edc6a097c258c4f926e0e3638124c4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1196746128691809634, guid: 30edc6a097c258c4f926e0e3638124c4, type: 3}
       propertyPath: m_LocalScale.x
@@ -9853,6 +9864,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1196746128691319106, guid: 30edc6a097c258c4f926e0e3638124c4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 571918276}
     - targetCorrespondingSourceObject: {fileID: 1196746128691319106, guid: 30edc6a097c258c4f926e0e3638124c4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 571918268}

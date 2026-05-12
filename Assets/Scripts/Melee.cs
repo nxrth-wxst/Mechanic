@@ -39,8 +39,6 @@ public class Melee : MonoBehaviour
         StartCoroutine(AttackWindow());
         StartCoroutine(ResetCooldown());
     }
-
-   
     private IEnumerator AttackWindow()
     {
         meleeHitbox.SetActive(true);
