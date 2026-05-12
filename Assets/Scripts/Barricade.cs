@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -10,16 +11,19 @@ public class Barricade : MonoBehaviour
     private float maxHealth = 100f;
     [SerializeField] private float emyCooldown;
     [SerializeField] private float timeBetweenPlanks;
+    private float firstHitTimer;
+    
     [SerializeField] private GameObject[] Boards;
-    private bool canEnter;
+
+    [SerializeField] private bool canEnter;
     private bool plrNearBarricade;
     private bool interacting;
     private bool allowRepair;
     private bool startRepair;
     [SerializeField] private bool emyNearBarricade;
-   
+    private bool firstHit;
     
-    public event EventHandler<BarricadeEventArgs> OnDamaged;
+    public event Action OnDamaged;
     public event EventHandler<BarricadeEventArgs> OnDestroyed;
     public event EventHandler<BarricadeEventArgs> OnRepaired;
 
@@ -51,20 +55,32 @@ public class Barricade : MonoBehaviour
 
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            plrNearBarricade = false;
-        }
-       
-    }
-
 
     private void OnTriggerStay(Collider other)
     {
-        EnemyAI enemy = other.GetComponent<EnemyAI>();
-        emyNearBarricade = enemy != null;
+        if (other.CompareTag("Enemy"))
+        {
+            EnemyAI enemy = other.GetComponent<EnemyAI>();
+            emyNearBarricade = enemy != null;
+        }
+
+        if (other.CompareTag("Player"))
+        {
+            plrNearBarricade = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+            plrNearBarricade = false;
+
+    }
+
+
+    public void NotifyEnemyDead()
+    {
+        emyNearBarricade = false;
     }
 
 
@@ -72,7 +88,7 @@ public class Barricade : MonoBehaviour
     {
         timeBetweenPlanks = Mathf.Clamp(timeBetweenPlanks, 0, 0.75f);
         currentHealth = Mathf.Clamp(currentHealth, 0, 100);
-        emyCooldown = Mathf.Clamp(emyCooldown, 0, 0.35f);
+        emyCooldown = Mathf.Clamp(emyCooldown, 0, 0.25f);
       
         if (!allowRepair)
         {
@@ -81,7 +97,8 @@ public class Barricade : MonoBehaviour
 
         if (!emyNearBarricade)
         {
-            emyCooldown = 0.35f;
+            emyCooldown = 0.25f;
+            firstHitTimer = 0f;
         }
         
         if (plrNearBarricade && !emyNearBarricade)
@@ -104,6 +121,19 @@ public class Barricade : MonoBehaviour
                 
             }
         }
+
+        if (emyNearBarricade)
+        {
+            firstHitTimer += 1;
+        
+          if (firstHitTimer == 1)
+            {
+                doDamage();
+            }
+        
+        }
+        
+        
 
         if (emyNearBarricade && emyCooldown == 0f)
         {
@@ -171,28 +201,33 @@ public class Barricade : MonoBehaviour
        
         if (currentHealth == 0)
         {
+            canEnter = true;
             SetActiveBoards(0);
         }
         else if (currentHealth <= 20f)
         {
             SetActiveBoards(1);
+            canEnter = false;
         }
         else if (currentHealth <= 40f)
         {
             SetActiveBoards(2);
+            canEnter = false;
         }
         else if (currentHealth <= 60f)
         {
             SetActiveBoards(3);
+            canEnter = false;
         }
         else if (currentHealth <= 80f)
         {
             SetActiveBoards(4);
+            canEnter = false;
         }
         else if (currentHealth <= 100f)
         {
             SetActiveBoards(5);
-            
+            canEnter = false;
         }
     }
 
@@ -218,6 +253,7 @@ public class Barricade : MonoBehaviour
     {
         currentHealth -= 10f;
         emyCooldown += 0.35f;
+        OnDamaged?.Invoke();
     }
 
     public bool EmyNearBarricade

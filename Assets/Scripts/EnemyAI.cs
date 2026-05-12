@@ -11,7 +11,7 @@ public class EnemyAI : MonoBehaviour
     private Animator animator;
     private Barricade nearestBarricade;
     private Coroutine replayCoroutine;
-    
+    private bool attackOccurred;
    
     
     private void OnTriggerEnter(Collider other)
@@ -28,6 +28,7 @@ public class EnemyAI : MonoBehaviour
         animator = GetComponent<Animator>();
         basicEnemy = GetComponent<NavMeshAgent>();
         UpdateNearestBarricade();
+        
     }
 
     void Update()
@@ -63,34 +64,54 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (nearestBarricade != null)
+            nearestBarricade.NotifyEnemyDead();
+    }
+
+
+    private void SubscribeToBarricade()
+    {
+        if (nearestBarricade != null)
+            nearestBarricade.OnDamaged += () => attackOccurred = true;
+    }
+
+
     private IEnumerator ReplayAnim()
     {
+        attackOccurred = false;
+        SubscribeToBarricade();
+
         while (nearestBarricade != null && nearestBarricade.EmyNearBarricade)
         {
-            animator.SetBool("BarricadeAttack", false);
-            animator.SetBool("RefreshAttack", true);
+           
+            yield return new WaitUntil(() => attackOccurred ||
+                                            nearestBarricade == null ||
+                                            !nearestBarricade.EmyNearBarricade);
 
-            yield return new WaitForSeconds(5.25f);
+            if (nearestBarricade == null || !nearestBarricade.EmyNearBarricade) break;
+
+            attackOccurred = false;
 
             animator.SetBool("BarricadeAttack", true);
             animator.SetBool("RefreshAttack", false);
 
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(0.5f);
 
+            animator.SetBool("BarricadeAttack", false);
+            animator.SetBool("RefreshAttack", true);
         }
 
-        replayCoroutine = null;
         animator.SetBool("BarricadeAttack", false);
         animator.SetBool("RefreshAttack", false);
+        replayCoroutine = null;
+    }
 
 
-    } 
-    
-    
-    
-    
-    
-    
+
+
+
     private void UpdateNearestBarricade()
     {
         Barricade[] allBarricades = FindObjectsByType<Barricade>(FindObjectsSortMode.None);
@@ -116,7 +137,7 @@ public class EnemyAI : MonoBehaviour
 
         if (nearest != null)
         {
-            nearestBarricade = nearest; 
+            nearestBarricade = nearest;
             target = nearest.getNavmeshTarget();
         }
     }
