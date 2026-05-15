@@ -31,6 +31,10 @@ public class Barricade : MonoBehaviour
     public Transform getNavmeshTarget() => navMeshTarget;
     public static Barricade Instance { get; private set; }
     private Controls controls;
+    private EnemyAI currentEnemy;
+    
+    
+    
     private void Awake()
     {
         currentHealth = maxHealth;
@@ -41,27 +45,16 @@ public class Barricade : MonoBehaviour
             
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            
-             plrNearBarricade = true;
-
-            
-        }
-
-     
-
-    }
+   
 
 
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
-            EnemyAI enemy = other.GetComponent<EnemyAI>();
-            emyNearBarricade = enemy != null;
+            currentEnemy = other.GetComponent<EnemyAI>();
+            emyNearBarricade = currentEnemy!= null;
+            AllowEntry();
         }
 
         if (other.CompareTag("Player"))
@@ -174,7 +167,20 @@ public class Barricade : MonoBehaviour
         interacting = false;
     }
 
-
+    private void AllowEntry()
+    {
+        if (currentHealth == 0)
+        {
+           currentEnemy.setPassthru(true);
+        }
+    }
+   
+    
+    
+    
+    
+    
+    
     private void StartToRepair()
     {
         timeBetweenPlanks -= 0.5f * Time.deltaTime;

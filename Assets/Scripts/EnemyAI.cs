@@ -4,7 +4,8 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    private Transform target;
+    private Transform barricadeTarget;
+    private Transform playerTarget;
     private NavMeshAgent basicEnemy;
     private float updateTargetInterval = 0.2f;
     private float timer;
@@ -12,7 +13,7 @@ public class EnemyAI : MonoBehaviour
     private Barricade nearestBarricade;
     private Coroutine replayCoroutine;
     private bool attackOccurred;
-   
+    [SerializeField] private bool passedThruBarricade;
     
     private void OnTriggerEnter(Collider other)
     {
@@ -27,8 +28,8 @@ public class EnemyAI : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         basicEnemy = GetComponent<NavMeshAgent>();
-        UpdateNearestBarricade();
-        
+        passedThruBarricade = false;
+        playerTarget = GameObject.FindWithTag("Player").transform;
     }
 
     void Update()
@@ -36,11 +37,14 @@ public class EnemyAI : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= updateTargetInterval)
         {
-            timer = 0f;
-            UpdateNearestBarricade();
+           
+            {
+                timer = 0f;
+                UpdateNearestBarricade();
 
-            if (target != null)
-                basicEnemy.SetDestination(target.position);
+                if (barricadeTarget != null)
+                    basicEnemy.SetDestination(barricadeTarget.position);
+            }
         }
 
         
@@ -109,11 +113,19 @@ public class EnemyAI : MonoBehaviour
     }
 
 
+    public void setPassthru(bool value)
+    {
+        passedThruBarricade = value;
 
+
+
+
+    }
 
 
     private void UpdateNearestBarricade()
     {
+       
         Barricade[] allBarricades = FindObjectsByType<Barricade>(FindObjectsSortMode.None);
 
         if (allBarricades.Length == 0)
@@ -138,7 +150,19 @@ public class EnemyAI : MonoBehaviour
         if (nearest != null)
         {
             nearestBarricade = nearest;
-            target = nearest.getNavmeshTarget();
+
+
+            if (passedThruBarricade)
+            {
+                barricadeTarget = playerTarget;
+                Debug.Log("headingforplayer");
+            }
+            else
+            {
+                barricadeTarget = nearest.getNavmeshTarget();
+            }
+            
+         
         }
     }
 }
