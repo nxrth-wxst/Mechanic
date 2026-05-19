@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TMPro; 
 
 public class WaveSystem : MonoBehaviour
 {
@@ -8,16 +9,13 @@ public class WaveSystem : MonoBehaviour
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private int enemiesPerWave = 3;
     [SerializeField] private float spawnTime = 4f;
-
+    [SerializeField] private TextMeshProUGUI waveText; 
 
     private int currentWave = 0;
     private int enemiesAlive = 0;
     private bool waveInProgress = false;
-
     private const float StartWave = 3;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         StartCoroutine(StartNextWave());
@@ -26,25 +24,21 @@ public class WaveSystem : MonoBehaviour
     IEnumerator StartNextWave()
     {
         yield return new WaitForSeconds(StartWave);
-
         currentWave++;
-        Debug.Log("Wave " + currentWave + " starting");
+        StartCoroutine(ShowMsg($"Wave {currentWave} starting"));
 
         int totalToSpawn = enemiesPerWave + (currentWave - 1) * 2;
-        enemiesAlive = 0; 
+        enemiesAlive = 0;
         waveInProgress = true;
-
         for (int i = 0; i < totalToSpawn; i++)
         {
             SpawnEnemy();
             yield return new WaitForSeconds(spawnTime);
         }
     }
-
-
     void SpawnEnemy()
     {
-        enemiesAlive++; 
+        enemiesAlive++;
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
         GameObject enemy = Instantiate(enemy1Prefab, spawnPoint.position, spawnPoint.rotation);
         enemy.GetComponent<EnemyHealth>().SetWaveManager(this);
@@ -56,14 +50,16 @@ public class WaveSystem : MonoBehaviour
         if (enemiesAlive <= 0 && waveInProgress)
         {
             waveInProgress = false;
-            Debug.Log("Wave " + currentWave + " cleared!");
+
+            StartCoroutine(ShowMsg($"Wave {currentWave} cleared!"));
             StartCoroutine(StartNextWave());
         }
     }
-
-        // Update is called once per frame
-    void Update()
+    IEnumerator ShowMsg(string msg)
     {
-        
+        waveText.text = msg;
+        waveText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        waveText.gameObject.SetActive(false);
     }
 }
