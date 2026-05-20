@@ -8,7 +8,7 @@ public class WaveSystem : MonoBehaviour
     [SerializeField] private GameObject enemy1Prefab;
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private int enemiesPerWave = 3;
-    [SerializeField] private float spawnTime = 4f;
+    [SerializeField] private float spawnTime = 7f;
     [SerializeField] private TextMeshProUGUI waveText; 
 
     private int currentWave = 0;
@@ -59,7 +59,7 @@ public class WaveSystem : MonoBehaviour
     {
         waveText.text = msg;
         waveText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2.5f);
         waveText.gameObject.SetActive(false);
     }
 }
