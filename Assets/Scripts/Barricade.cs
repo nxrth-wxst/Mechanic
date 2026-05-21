@@ -12,7 +12,7 @@ public class Barricade : MonoBehaviour
     [SerializeField] private float emyCooldown;
     [SerializeField] private float timeBetweenPlanks;
     private float firstHitTimer;
-    
+
     [SerializeField] private GameObject[] Boards;
 
     [SerializeField] private bool canEnter;
@@ -22,38 +22,47 @@ public class Barricade : MonoBehaviour
     private bool startRepair;
     [SerializeField] private bool emyNearBarricade;
     private bool firstHit;
-    
+    private bool entryTriggered = false;
+
     public event Action OnDamaged;
     public event EventHandler<BarricadeEventArgs> OnDestroyed;
     public event EventHandler<BarricadeEventArgs> OnRepaired;
 
     [SerializeField] private Transform navMeshTarget;
+    [SerializeField] private Transform windowWaypoint1;
+    [SerializeField] private Transform windowWaypoint2;
+
     public Transform getNavmeshTarget() => navMeshTarget;
+    public Transform GetWindowWaypoint1() => windowWaypoint1;
+    public Transform GetWindowWaypoint2() => windowWaypoint2;
+
     public static Barricade Instance { get; private set; }
     private Controls controls;
     private EnemyAI currentEnemy;
-    
-    
-    
+
     private void Awake()
     {
         currentHealth = maxHealth;
         canEnter = false;
         controls = new Controls();
         Instance = this;
-        
-            
     }
 
-   
-
+    private void AllowEntry()
+    {
+        if (currentHealth == 0 && !entryTriggered)
+        {
+            entryTriggered = true;
+            currentEnemy.setPassthru(true);
+        }
+    }
 
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
             currentEnemy = other.GetComponent<EnemyAI>();
-            emyNearBarricade = currentEnemy!= null;
+            emyNearBarricade = currentEnemy != null;
             AllowEntry();
         }
 
@@ -67,22 +76,19 @@ public class Barricade : MonoBehaviour
     {
         if (other.CompareTag("Player"))
             plrNearBarricade = false;
-
     }
-
 
     public void NotifyEnemyDead()
     {
         emyNearBarricade = false;
     }
 
-
     private void Update()
     {
         timeBetweenPlanks = Mathf.Clamp(timeBetweenPlanks, 0, 0.75f);
         currentHealth = Mathf.Clamp(currentHealth, 0, 100);
         emyCooldown = Mathf.Clamp(emyCooldown, 0, 0.25f);
-      
+
         if (!allowRepair)
         {
             timeBetweenPlanks = 0.75f;
@@ -93,7 +99,7 @@ public class Barricade : MonoBehaviour
             emyCooldown = 0.25f;
             firstHitTimer = 0f;
         }
-        
+
         if (plrNearBarricade && !emyNearBarricade)
         {
             controls.Enable();
@@ -102,42 +108,34 @@ public class Barricade : MonoBehaviour
         {
             allowRepair = false;
             controls.Disable();
-         }
-    
+        }
+
         if (interacting)
         {
             if (currentHealth < 100)
             {
-                
-                  allowRepair = true;
-                  StartToRepair();
-                
+                allowRepair = true;
+                StartToRepair();
             }
         }
 
         if (emyNearBarricade)
         {
             firstHitTimer += 1;
-        
-          if (firstHitTimer == 1)
+
+            if (firstHitTimer == 1)
             {
                 doDamage();
             }
-        
         }
-        
-        
 
         if (emyNearBarricade && emyCooldown == 0f)
         {
             doDamage();
         }
 
-        EmyCooldown(); 
+        EmyCooldown();
         UpdateBoards();
-            
-       
-    
     }
 
     private void OnEnable()
@@ -152,12 +150,9 @@ public class Barricade : MonoBehaviour
         controls.Player.Interaction.canceled -= OnInteractionCanceled;
     }
 
-
     private void OnInteractionStarted(InputAction.CallbackContext context)
     {
-        
         interacting = true;
-        
     }
 
     private void OnInteractionCanceled(InputAction.CallbackContext context)
@@ -167,20 +162,6 @@ public class Barricade : MonoBehaviour
         interacting = false;
     }
 
-    private void AllowEntry()
-    {
-        if (currentHealth == 0)
-        {
-           currentEnemy.setPassthru(true);
-        }
-    }
-   
-    
-    
-    
-    
-    
-    
     private void StartToRepair()
     {
         timeBetweenPlanks -= 0.5f * Time.deltaTime;
@@ -190,21 +171,20 @@ public class Barricade : MonoBehaviour
             {
                 CurrentHealth = currentHealth,
                 MaxHealth = maxHealth,
-               
             };
-
-
 
             OnRepaired?.Invoke(this, args);
             timeBetweenPlanks += 0.75f;
             currentHealth += 20f;
-            startRepair = true; 
+            startRepair = true;
+
+            
+            entryTriggered = false;
         }
     }
 
     private void UpdateBoards()
     {
-       
         if (currentHealth == 0)
         {
             canEnter = true;
@@ -249,11 +229,12 @@ public class Barricade : MonoBehaviour
     {
         if (emyNearBarricade)
         {
-            emyCooldown -= 0.070f * Time.deltaTime;
+            if (canEnter == false)
+            {
+                emyCooldown -= 0.070f * Time.deltaTime;
+            }
         }
     }
-
-
 
     private void doDamage()
     {
@@ -265,16 +246,12 @@ public class Barricade : MonoBehaviour
     public bool EmyNearBarricade
     {
         get { return emyNearBarricade; }
-        private set { emyNearBarricade = value; }   
+        private set { emyNearBarricade = value; }
     }
 
     public float EmyCoolDown
     {
         get { return emyCooldown; }
         private set { emyCooldown = value; }
-
     }
 }
-
-
-
