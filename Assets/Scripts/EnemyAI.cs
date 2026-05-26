@@ -74,6 +74,9 @@ public class EnemyAI : MonoBehaviour
             animator.SetBool("BarricadeAttack", false);
             animator.SetBool("RefreshAttack", false);
         }
+   
+        
+    
     }
 
     private IEnumerator TraverseLink()
@@ -181,9 +184,13 @@ public class EnemyAI : MonoBehaviour
             nearestBarricade = nearest;
 
             if (passedThruBarricade)
+            {
                 barricadeTarget = playerTarget;
+                animator.SetBool("ThruBarricade", true);
+                animator.SetBool("ForPlayer", true);
+    }
             else
-                barricadeTarget = nearest.getNavmeshTarget();
+            barricadeTarget = nearest.getNavmeshTarget();
         }
     }
 }

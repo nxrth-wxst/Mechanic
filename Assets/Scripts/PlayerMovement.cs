@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("SprintSettings")]
     private Sprint sprint;
     private float accelDecel = 0.025f;
-    private int maxSprintSpeed = 9;
+    private int maxSprintSpeed = 7;
 
     [Header("MovementSettings")]
     [SerializeField] private float baseSpeed = 5f;

@@ -76,7 +76,11 @@ public class Barricade : MonoBehaviour
             emyNearBarricade = nearbyEnemies.Count > 0;
             AllowEntry();
         }
-
+        else
+        {
+            emyNearBarricade = false;
+        }
+       
         if (other.CompareTag("Player"))
         {
             plrNearBarricade = true;
