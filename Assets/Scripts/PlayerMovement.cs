@@ -18,19 +18,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody playerPhysics;
     private float jumpTimer = 0f;
 
+    [SerializeField] private Animator gunAnim;
 
     [Header("CoreComponents")]
     public static PlayerMovement Instance { get; private set; }
     private Controls controls;
     private Rigidbody rb;
     private Stamina stamina;
-    
+
     [Header("JumpSettings")]
     private bool isGrounded;
     private float checkDistance;
     [SerializeField] private LayerMask jumpableLayer;
-    
-  
+
+
     void OnEnable()
     {
         if (controls != null)
@@ -40,13 +41,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-   
+
     void OnDisable()
     {
         if (controls != null)
         {
             controls.Player.Jump.performed -= Jump_performed;  // subscribing, not jumping here
-           // anytime the jump action is performed, the Jump_performed method will get called automatically
+                                                               // anytime the jump action is performed, the Jump_performed method will get called automatically
 
             controls.Player.Disable();
         }
@@ -54,20 +55,21 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+
         jumpTimer = Mathf.Clamp(jumpTimer, 0f, 12f);
 
-        
-        
-        
+
+
+
         if (sprint.IsSprinting)
         {
-            
-                if (baseSpeed < maxSprintSpeed)
-                {
-                    baseSpeed += accelDecel;
-                }
 
-            
+            if (baseSpeed < maxSprintSpeed)
+            {
+                baseSpeed += accelDecel;
+            }
+
+
         }
         else
         {
@@ -75,9 +77,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 baseSpeed -= accelDecel;
             }
-        } 
-        
-        
+        }
+
+
         if (jumpTimer > 0f)
         {
             StartCoroutine(Jumped());
@@ -88,36 +90,36 @@ public class PlayerMovement : MonoBehaviour
         {
             if (baseSpeed > 5)
             {
-            baseSpeed -= accelDecel;
+                baseSpeed -= accelDecel;
             }
             jump = 0.15f;
         }
 
-     
+
         Vector2 walkInput = controls.Player.Walk.ReadValue<Vector2>();
         Vector3 walkVector = new Vector3(walkInput.x, 0, walkInput.y);
         transform.Translate(walkVector * Time.deltaTime * baseSpeed);
 
-        
+
         if (Physics.Raycast(transform.position, Vector3.down, checkDistance, jumpableLayer))
         {
             isGrounded = true;
-            
+
         }
         else
         {
             isGrounded = false;
         }
-        
-        
-    
-    
-    
+
+
+
+
+
     }
 
     private IEnumerator Jumped()
     {
-       
+
         baseSpeed += 0.0025f;
         yield return new WaitForSeconds(0.5f);
         if (baseSpeed > 5)
@@ -130,20 +132,20 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (baseSpeed > 5)
                 {
-                    
+
                     baseSpeed -= accelDecel;
                 }
             }
         }
     }
-    
-    
-    
-    
-    
+
+
+
+
+
     void Start()
     {
-      
+
         isGrounded = false;
         rb = GetComponent<Rigidbody>();
         checkDistance = 1f;
@@ -153,10 +155,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump_performed(InputAction.CallbackContext context)
     {
-        
+
         if (isGrounded == true)
         {
-            if (stamina.Stam >= 30f) 
+            if (stamina.Stam >= 30f)
             {
                 if (jumpTimer < 0.1f)
                 {
@@ -168,21 +170,21 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    
+
     public bool GroundedCheck
     {
         get { return isGrounded; }
         private set { isGrounded = value; }
     }
-    
+
     public float JumpTimer
     {
         get { return jumpTimer; }
-        private set {  jumpTimer = value; }
+        private set { jumpTimer = value; }
     }
 
 
-    
+
     void Awake()
     {
         Instance = this;
