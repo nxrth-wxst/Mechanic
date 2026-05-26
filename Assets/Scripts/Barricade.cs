@@ -1,9 +1,8 @@
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using static UnityEngine.Rendering.GPUSort;
 
 public class Barricade : MonoBehaviour
 {
@@ -22,7 +21,10 @@ public class Barricade : MonoBehaviour
     private bool startRepair;
     [SerializeField] private bool emyNearBarricade;
     private bool firstHit;
-    private bool entryTriggered = false;
+
+    // Track all enemies near barricade instead of just one
+    private List<EnemyAI> nearbyEnemies = new List<EnemyAI>();
+    private HashSet<EnemyAI> triggeredEnemies = new HashSet<EnemyAI>();
 
     public event Action OnDamaged;
     public event EventHandler<BarricadeEventArgs> OnDestroyed;
@@ -38,7 +40,6 @@ public class Barricade : MonoBehaviour
 
     public static Barricade Instance { get; private set; }
     private Controls controls;
-    private EnemyAI currentEnemy;
 
     private void Awake()
     {
@@ -50,10 +51,17 @@ public class Barricade : MonoBehaviour
 
     private void AllowEntry()
     {
-        if (currentHealth == 0 && !entryTriggered)
+        if (currentHealth == 0)
         {
-            entryTriggered = true;
-            currentEnemy.setPassthru(true);
+            foreach (EnemyAI enemy in nearbyEnemies)
+            {
+                
+                if (enemy != null && !triggeredEnemies.Contains(enemy))
+                {
+                    triggeredEnemies.Add(enemy);
+                    enemy.setPassthru(true);
+                }
+            }
         }
     }
 
@@ -61,8 +69,11 @@ public class Barricade : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            currentEnemy = other.GetComponent<EnemyAI>();
-            emyNearBarricade = currentEnemy != null;
+            EnemyAI enemy = other.GetComponent<EnemyAI>();
+            if (enemy != null && !nearbyEnemies.Contains(enemy))
+                nearbyEnemies.Add(enemy);
+
+            emyNearBarricade = nearbyEnemies.Count > 0;
             AllowEntry();
         }
 
@@ -74,13 +85,22 @@ public class Barricade : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if (other.CompareTag("Enemy"))
+        {
+            EnemyAI enemy = other.GetComponent<EnemyAI>();
+            if (enemy != null)
+                nearbyEnemies.Remove(enemy);
+
+            emyNearBarricade = nearbyEnemies.Count > 0;
+        }
+
         if (other.CompareTag("Player"))
             plrNearBarricade = false;
     }
 
     public void NotifyEnemyDead()
     {
-        emyNearBarricade = false;
+        emyNearBarricade = nearbyEnemies.Count > 0;
     }
 
     private void Update()
@@ -90,9 +110,7 @@ public class Barricade : MonoBehaviour
         emyCooldown = Mathf.Clamp(emyCooldown, 0, 0.25f);
 
         if (!allowRepair)
-        {
             timeBetweenPlanks = 0.75f;
-        }
 
         if (!emyNearBarricade)
         {
@@ -101,9 +119,7 @@ public class Barricade : MonoBehaviour
         }
 
         if (plrNearBarricade && !emyNearBarricade)
-        {
             controls.Enable();
-        }
         else
         {
             allowRepair = false;
@@ -122,17 +138,12 @@ public class Barricade : MonoBehaviour
         if (emyNearBarricade)
         {
             firstHitTimer += 1;
-
             if (firstHitTimer == 1)
-            {
                 doDamage();
-            }
         }
 
         if (emyNearBarricade && emyCooldown == 0f)
-        {
             doDamage();
-        }
 
         EmyCooldown();
         UpdateBoards();
@@ -179,7 +190,7 @@ public class Barricade : MonoBehaviour
             startRepair = true;
 
             
-            entryTriggered = false;
+            triggeredEnemies.Clear();
         }
     }
 
@@ -190,50 +201,23 @@ public class Barricade : MonoBehaviour
             canEnter = true;
             SetActiveBoards(0);
         }
-        else if (currentHealth <= 20f)
-        {
-            SetActiveBoards(1);
-            canEnter = false;
-        }
-        else if (currentHealth <= 40f)
-        {
-            SetActiveBoards(2);
-            canEnter = false;
-        }
-        else if (currentHealth <= 60f)
-        {
-            SetActiveBoards(3);
-            canEnter = false;
-        }
-        else if (currentHealth <= 80f)
-        {
-            SetActiveBoards(4);
-            canEnter = false;
-        }
-        else if (currentHealth <= 100f)
-        {
-            SetActiveBoards(5);
-            canEnter = false;
-        }
+        else if (currentHealth <= 20f) { SetActiveBoards(1); canEnter = false; }
+        else if (currentHealth <= 40f) { SetActiveBoards(2); canEnter = false; }
+        else if (currentHealth <= 60f) { SetActiveBoards(3); canEnter = false; }
+        else if (currentHealth <= 80f) { SetActiveBoards(4); canEnter = false; }
+        else if (currentHealth <= 100f) { SetActiveBoards(5); canEnter = false; }
     }
 
     private void SetActiveBoards(int count)
     {
         for (int i = 0; i < Boards.Length; i++)
-        {
             Boards[i].SetActive(i < count);
-        }
     }
 
     private void EmyCooldown()
     {
-        if (emyNearBarricade)
-        {
-            if (canEnter == false)
-            {
-                emyCooldown -= 0.070f * Time.deltaTime;
-            }
-        }
+        if (emyNearBarricade && !canEnter)
+            emyCooldown -= 0.070f * Time.deltaTime;
     }
 
     private void doDamage()
