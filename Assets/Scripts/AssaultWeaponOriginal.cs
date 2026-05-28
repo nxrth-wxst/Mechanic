@@ -31,19 +31,24 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
 
     void OnEnable()
     {
-        controls.Player.Enable();
+        if (controls == null) controls = new Controls();
+        controls.Player.Enable(); 
+
         controls.Player.ShootAssault.started += OnShootStarted;
         controls.Player.ShootAssault.canceled += OnShootCanceled;
         controls.Player.Reload.performed += OnReloadPressed;
+
+        UpdateAmmoUI(); 
     }
 
     void OnDisable()
     {
-        controls.Player.Disable();
         controls.Player.ShootAssault.started -= OnShootStarted;
         controls.Player.ShootAssault.canceled -= OnShootCanceled;
-
         controls.Player.Reload.performed -= OnReloadPressed;
+
+      
+        isReloading = false;
     }
 
     private void Start()

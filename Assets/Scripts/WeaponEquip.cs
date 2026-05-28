@@ -9,13 +9,11 @@ public class WeaponEquip : MonoBehaviour
 
     private Controls controls;
 
-    // Awake is better for initializing Input Actions
     void Awake()
     {
         controls = new Controls();
     }
 
-    // ALWAYS enable and subscribe here
     void OnEnable()
     {
         controls.Player.Enable();
@@ -24,7 +22,6 @@ public class WeaponEquip : MonoBehaviour
         controls.Player.SwitchWeapon3.performed += SwitchWeapon3_formed;
     }
 
-    // ALWAYS unsubscribe here to prevent "MissingReferenceException" /ok
     void OnDisable()
     {
         controls.Player.SwitchWeapon1.performed -= SwitchWeapon1_formed;
@@ -33,28 +30,32 @@ public class WeaponEquip : MonoBehaviour
         controls.Player.Disable();
     }
 
+    private void Start()
+    {
+        SwitchWeapon1_formed(new InputAction.CallbackContext());
+    }
+
     private void SwitchWeapon1_formed(InputAction.CallbackContext context)
     {
-        // Added null checks to ensure the objects still exist in the scene
         if (gun1 != null) gun1.SetActive(true);
         if (gun2 != null) gun2.SetActive(false);
         if (gun3 != null) gun3.SetActive(false);
-        Debug.Log("gun 1");
+        Debug.Log("gun 1 active");
     }
 
     private void SwitchWeapon2_formed(InputAction.CallbackContext context)
     {
-        Debug.Log("gun 2");
         if (gun2 != null) gun2.SetActive(true);
         if (gun1 != null) gun1.SetActive(false);
         if (gun3 != null) gun3.SetActive(false);
+        Debug.Log("gun 2 active");
     }
 
     private void SwitchWeapon3_formed(InputAction.CallbackContext context)
     {
-        Debug.Log("gun 3");
         if (gun3 != null) gun3.SetActive(true);
         if (gun1 != null) gun1.SetActive(false);
         if (gun2 != null) gun2.SetActive(false);
+        Debug.Log("gun 3 active");
     }
 }
