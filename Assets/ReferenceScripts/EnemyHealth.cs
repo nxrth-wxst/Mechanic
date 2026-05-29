@@ -1,11 +1,14 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour, ICollidable
 {
     private float dummyHealth = 2f;
     private WaveSystem waveManager;
-    
+
+
     void ICollidable.OnCollision(float damage)
     {
         dummyHealth -= damage;
@@ -14,6 +17,7 @@ public class EnemyHealth : MonoBehaviour, ICollidable
         {
             Dead();
             Destroy(gameObject);
+        
             
         }
 
@@ -28,9 +32,6 @@ public class EnemyHealth : MonoBehaviour, ICollidable
     
     private void Dead()
     {
-      
-        
-        
         if (waveManager != null)
         {
             waveManager.OnEnemyDied();

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro; // Added for TextMeshPro UI support
+using TMPro; 
 
 public class AssaultWeaponOriginal : MonoBehaviour, IBullet
 {
@@ -21,6 +21,8 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
     [SerializeField] private TextMeshProUGUI ammoText; 
 
     private bool isReloading = false;
+
+    private const float NoAmmo = 0;
 
     // public ParticleSystem muzzleFlash;  //gets the particlesystem in the gun
 
@@ -79,7 +81,7 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
 
     private void Update()
     {
-        if (currentAmmo <= 0 || isReloading)
+        if (currentAmmo <= NoAmmo || isReloading)
         {
             return;
         }
@@ -98,13 +100,12 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
     IEnumerator Reload()
     {
         isReloading = true;
-        Debug.Log("Is reloading");
+      
         yield return new WaitForSeconds(ReloadTime);
         currentAmmo = magCapacity;
         isReloading = false;
 
         UpdateAmmoUI();
-        Debug.Log("Reload is complete");
     }
 
     public void Shoot(float BulletPower)
