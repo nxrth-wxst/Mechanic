@@ -43,6 +43,7 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
 
     void OnDisable()
     {
+        controls.Player.Disable();
         controls.Player.ShootAssault.started -= OnShootStarted;
         controls.Player.ShootAssault.canceled -= OnShootCanceled;
         controls.Player.Reload.performed -= OnReloadPressed;
