@@ -21,6 +21,7 @@ public class EnemyAI : MonoBehaviour
         if (pCollidable != null)
         {
             pCollidable.PlayerCollision(this);
+            animator.SetTrigger("HitPlayer");
         }
     }
 

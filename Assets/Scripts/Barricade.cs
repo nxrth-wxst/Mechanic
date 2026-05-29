@@ -35,8 +35,7 @@ public class Barricade : MonoBehaviour
     [SerializeField] private Transform windowWaypoint2;
 
     public Transform getNavmeshTarget() => navMeshTarget;
-    public Transform GetWindowWaypoint1() => windowWaypoint1;
-    public Transform GetWindowWaypoint2() => windowWaypoint2;
+    
 
     public static Barricade Instance { get; private set; }
     private Controls controls;
