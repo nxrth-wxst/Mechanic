@@ -12,7 +12,7 @@ public class WaveSystem : MonoBehaviour
     [SerializeField] private TextMeshProUGUI waveText; 
 
     private int currentWave = 0;
-    private int enemiesAlive = 0;
+    [SerializeField] private int enemiesAlive = 0;
     private bool waveInProgress = false;
     private const float StartWave = 3;
 
