@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro; // Added for TextMeshPro UI support
 
 public class AssaultWeaponOriginal : MonoBehaviour, IBullet
 {
@@ -12,18 +14,31 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
     private float nextFire;
     public event EventHandler OnFire;
 
-   // public ParticleSystem muzzleFlash;  //gets the particlesystem in the gun
-    
+    [SerializeField] private int currentAmmo = 30;
+    [SerializeField] private int magCapacity = 30;
+    [SerializeField] private float ReloadTime = 2.5f;
+
+    [SerializeField] private TextMeshProUGUI ammoText; 
+
+    private bool isReloading = false;
+
+    // public ParticleSystem muzzleFlash;  //gets the particlesystem in the gun
+
     void Awake()
     {
         controls = new Controls();
     }
+
     void OnEnable()
     {
+        if (controls == null) controls = new Controls();
+        controls.Player.Enable(); 
 
-        controls.Player.Enable();
         controls.Player.ShootAssault.started += OnShootStarted;
         controls.Player.ShootAssault.canceled += OnShootCanceled;
+        controls.Player.Reload.performed += OnReloadPressed;
+
+        UpdateAmmoUI(); 
     }
 
     void OnDisable()
@@ -31,7 +46,15 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
         controls.Player.Disable();
         controls.Player.ShootAssault.started -= OnShootStarted;
         controls.Player.ShootAssault.canceled -= OnShootCanceled;
+        controls.Player.Reload.performed -= OnReloadPressed;
 
+      
+        isReloading = false;
+    }
+
+    private void Start()
+    {
+        UpdateAmmoUI();
     }
 
     private void OnShootStarted(InputAction.CallbackContext context)
@@ -44,8 +67,23 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
         isShooting = false;
     }
 
+
+    private void OnReloadPressed(InputAction.CallbackContext context)
+    {
+
+        if (!isReloading && currentAmmo < magCapacity)
+        {
+            StartCoroutine(Reload());
+        }
+    }
+
     private void Update()
     {
+        if (currentAmmo <= 0 || isReloading)
+        {
+            return;
+        }
+
         if (isShooting && Time.time >= nextFire)
         {
             IBullet iBullet = GetComponent<IBullet>();
@@ -55,13 +93,27 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
                 nextFire = Time.time + fireRate;
             }
         }
-
     }
+
+    IEnumerator Reload()
+    {
+        isReloading = true;
+        Debug.Log("Is reloading");
+        yield return new WaitForSeconds(ReloadTime);
+        currentAmmo = magCapacity;
+        isReloading = false;
+
+        UpdateAmmoUI();
+        Debug.Log("Reload is complete");
+    }
+
     public void Shoot(float BulletPower)
     {
+        currentAmmo--;
+        UpdateAmmoUI();
+
         if (Assault == null) return;
         OnFire?.Invoke(this, EventArgs.Empty);
-       // muzzleFlash.Play();
         GameObject BulletInstance = Instantiate(Assault, transform.position, transform.rotation);
         Rigidbody rb = BulletInstance.GetComponent<Rigidbody>();
 
@@ -70,8 +122,13 @@ public class AssaultWeaponOriginal : MonoBehaviour, IBullet
             rb.AddForce(-transform.forward * BulletPower, ForceMode.Impulse);
         }
     }
-
-    //Physics.Raycast and transform.forward
-
+    private void UpdateAmmoUI()
+    {
+        if (ammoText != null)
+        {
+            ammoText.text = $"{currentAmmo} / {magCapacity}";
+        }
+    }
 }
 
+ 
