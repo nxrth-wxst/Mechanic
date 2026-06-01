@@ -10,7 +10,8 @@ public class GunAudioFlash : MonoBehaviour
     [Header("audio")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioSource assaultAudioSource;
-   
+    [SerializeField] private AudioSource knifeSwing;
+    [SerializeField] private AudioSource knifeHit;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
