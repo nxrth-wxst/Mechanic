@@ -81,7 +81,7 @@ public class PistolWeapon : MonoBehaviour, IBullet
     IEnumerator Reload()
     {
         isReloading = true;
-        Debug.Log("Pistol is reloading");
+ 
 
         yield return new WaitForSeconds(ReloadTime);
 
@@ -89,7 +89,7 @@ public class PistolWeapon : MonoBehaviour, IBullet
         isReloading = false;
 
         UpdateAmmoUI(); 
-        Debug.Log("Pistol Reload complete");
+  
     }
 
   

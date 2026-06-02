@@ -8,34 +8,30 @@ public class EnemyHealth : MonoBehaviour, ICollidable
     private float dummyHealth = 2f;
     private WaveSystem waveManager;
 
-
     void ICollidable.OnCollision(float damage)
     {
         dummyHealth -= damage;
-
         if (dummyHealth < 0)
         {
             Dead();
             Destroy(gameObject);
-        
-            
         }
-
     }
-
     public void SetWaveManager(WaveSystem Manager)
     {
-    waveManager = Manager;
-    
-    
+        waveManager = Manager;
     }
-    
-    private void Dead()
+
+    public void Dead()
     {
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.AddKillScore();
+        }
+
         if (waveManager != null)
         {
             waveManager.OnEnemyDied();
         }
     }
- 
 }
