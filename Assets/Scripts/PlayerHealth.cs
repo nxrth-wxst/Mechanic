@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerHealth : MonoBehaviour, PColliable
 {
@@ -9,35 +10,36 @@ public class PlayerHealth : MonoBehaviour, PColliable
     [SerializeField] private Slider healthSlider;
     [SerializeField] private GameObject GameOverPanel;
 
+    [SerializeField] private TextMeshProUGUI gameOverScoreText;
+
     private const float playerHealthZero = 0;
     private const float healthStart = 0;
-
     private float currentHealth;
-
     private const float TimeScalePaused = 0f;
     private const float TimeScaleNormal = 1f;
 
-    private void Start() //starts with full hp
+    private void Start()
     {
         currentHealth = maxHealth;
         UpdateSlider();
     }
 
-    public void PlayerCollision(EnemyAI enemy) //the collision making the slider work
+    public void PlayerCollision(EnemyAI enemy)
     {
         TakeDamage(enemyContact);
     }
-    private void TakeDamage(float amount) //if the enemy hits player it loses hp
-    {
-        currentHealth = Mathf.Clamp(currentHealth - amount, healthStart, maxHealth); UpdateSlider();
 
-        if (currentHealth <= playerHealthZero) 
+    private void TakeDamage(float amount)
+    {
+        currentHealth = Mathf.Clamp(currentHealth - amount, healthStart, maxHealth);
+        UpdateSlider();
+        if (currentHealth <= playerHealthZero)
         {
             Die();
         }
     }
 
-    private void UpdateSlider() //updating the ui 
+    private void UpdateSlider()
     {
         if (healthSlider != null)
         {
@@ -45,19 +47,23 @@ public class PlayerHealth : MonoBehaviour, PColliable
         }
     }
 
-    private void Die() //if the health is 0, shows gameoverpanel
+    private void Die()
     {
-         GameOverPanel.SetActive(true);
-     
-         Time.timeScale = TimeScalePaused;
-         Cursor.lockState = CursorLockMode.None;
-         Cursor.visible = true;
+        if (gameOverScoreText != null && ScoreManager.Instance != null)
+        {
+            gameOverScoreText.text = "Score: " + ScoreManager.Instance.CurrentScore;
+        }
+
+        GameOverPanel.SetActive(true);
+        Time.timeScale = TimeScalePaused;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
-    public void RestartGame() //Game over Panel shows when the player dies
+    public void RestartGame()
     {
-        Time.timeScale = TimeScaleNormal; //unfreezes the camera.
+        Time.timeScale = TimeScaleNormal;
+        ScoreManager.Instance?.ResetScore();
         SceneManager.LoadScene("MainAriefScene");
     }
-
 }
