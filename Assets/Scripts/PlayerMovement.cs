@@ -162,7 +162,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (jumpTimer < 0.1f)
                 {
-                    rb.AddForce(transform.up * 5, ForceMode.Impulse);
+                    rb.AddForce(transform.up * 3.5f, ForceMode.Impulse);
                     isGrounded = false;
                     jumpTimer += 1.65f;
                 }
