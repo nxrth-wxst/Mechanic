@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +11,7 @@ public class Melee : MonoBehaviour
 
     private const float AttackCooldown = 1f;
     private const float AttackWindowCooldown = 0.3f;
+    public event EventHandler OnSwing;
 
     void Awake()
     {
@@ -36,6 +38,7 @@ public class Melee : MonoBehaviour
         canAttack = false;
         Animator anim = melee.GetComponent<Animator>();
         anim.SetTrigger("Attack");
+        OnSwing?.Invoke(this,EventArgs.Empty);
         StartCoroutine(AttackWindow());
         StartCoroutine(ResetCooldown());
     }
