@@ -122,7 +122,9 @@ public class Barricade : MonoBehaviour
         }
 
         if (plrNearBarricade && !emyNearBarricade)
+        {
             controls.Enable();
+        }
         else
         {
             allowRepair = false;
