@@ -14,6 +14,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Settings.unity
     guid: 3794ce61df926f64c85a3adc728485df
+  - enabled: 1
+    path: Assets/Scenes/School.unity
+    guid: 3b65e48ee249e7c4b8f59d8295741e71
+  - enabled: 1
+    path: Assets/Scenes/JurishScene.unity
+    guid: f642374761f79394ba82ea4d3317f970
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 144e990a93a84c34ab9467ec2da5f3ad, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
