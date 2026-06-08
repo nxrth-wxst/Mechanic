@@ -42,10 +42,10 @@ Texture2D:
 
   image data: 1
   _typelessdata: 00
-=======
+
   image data: 1
   _typelessdata: 00
->>>>>>> 7abe89d7247ff77724da255788f69ab08a265dcd
+ 7abe89d7247ff77724da255788f69ab08a265dcd
   m_StreamData:
     serializedVersion: 2
     offset: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   InternalDynamicOS: 0
   m_GlyphTable: []
   m_CharacterTable: []
->>>>>>> 7abe89d7247ff77724da255788f69ab08a265dcd
+ 7abe89d7247ff77724da255788f69ab08a265dcd
   m_AtlasTextures:
   - {fileID: -8363062824534000524}
   m_AtlasTextureIndex: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_AtlasPadding: 9
   m_AtlasRenderMode: 4165
 
-=======
+
   m_UsedGlyphRects: []
   m_FreeGlyphRects:
   - m_X: 0
@@ -137,7 +137,7 @@ MonoBehaviour:
     m_Y: 0
     m_Width: 1023
     m_Height: 1023
->>>>>>> 7abe89d7247ff77724da255788f69ab08a265dcd
+ 7abe89d7247ff77724da255788f69ab08a265dcd
   m_FontFeatureTable:
     m_MultipleSubstitutionRecords: []
     m_LigatureSubstitutionRecords: []
