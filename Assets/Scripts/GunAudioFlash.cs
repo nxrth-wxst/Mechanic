@@ -27,7 +27,7 @@ public class GunAudioFlash : MonoBehaviour
     {
         assaultWeaponOriginal.OnFire += AssaultWeaponOriginal_OnFire;
         Pistolsound.OnClick += PistolWeapon_OnClick;
-        knifeSwing.OnSwing += knifeSwing_OnSwing;
+       // knifeSwing.OnSwing += knifeSwing_OnSwing;
     }
 
     private void AssaultWeaponOriginal_OnFire(object sender, System.EventArgs e)

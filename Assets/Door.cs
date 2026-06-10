@@ -52,7 +52,10 @@ public class Door : MonoBehaviour
             timeToHold = 0.10f;
         }
     
-    
+        if (timeToHold <= 0f)
+        {
+            Debug.Log("doorbought");
+        } 
     }
 
 
