@@ -27,7 +27,11 @@ public class GunAudioFlash : MonoBehaviour
     {
         assaultWeaponOriginal.OnFire += AssaultWeaponOriginal_OnFire;
         Pistolsound.OnClick += PistolWeapon_OnClick;
+<<<<<<< HEAD
        // knifeSwing.OnSwing += knifeSwing_OnSwing;
+=======
+      //  knifeSwing.OnSwing += knifeSwing_OnSwing;
+>>>>>>> 15a75dd10f663bff39a774905d4685de76818fda
     }
 
     private void AssaultWeaponOriginal_OnFire(object sender, System.EventArgs e)
@@ -43,10 +47,10 @@ public class GunAudioFlash : MonoBehaviour
         pistolFlash.Play();
         audioSource.Play();
     }
-    private void knifeSwing_OnSwing(object sender, System.EventArgs e)
-    {
-        knifeSwing.Play();
-    } 
+   // private void knifeSwing_OnSwing(object sender, System.EventArgs e)
+  //  {
+   //     knifeSwing.Play();
+ //   } 
    
 
 }
