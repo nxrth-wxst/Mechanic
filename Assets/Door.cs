@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class Door : MonoBehaviour
 {
@@ -8,17 +9,23 @@ public class Door : MonoBehaviour
     private bool interacting;
 
     private Controls controls;
-    private ScoreManager scoreManager;
 
     private float doorCost = 150f;
     [SerializeField] private float timeToHold = 0.10f;
     private Animator animator;
 
+    [SerializeField] private GameObject promptUI;
+    [SerializeField] private TextMeshProUGUI promptText;
+
     private void Awake()
     {
         controls = new Controls();
-        scoreManager = FindObjectsByType<ScoreManager>(FindObjectsSortMode.None)[0];
         animator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        promptUI.SetActive(false);
     }
 
     private void OnTriggerStay(Collider other)
@@ -37,10 +44,23 @@ public class Door : MonoBehaviour
 
     private void Update()
     {
-        if (plrNearDoor)
+        if (plrNearDoor && !plrOpenedDoor)
+        {
             controls.Enable();
+            promptUI.SetActive(true);
+
+            promptText.text = $"Hold E to open\n${doorCost}\nYour score: {ScoreManager.Instance.GetMoney}";
+
+            if (ScoreManager.Instance.GetMoney >= doorCost)
+                promptText.color = Color.white;
+            else
+                promptText.color = Color.red;
+        }
         else
+        {
             controls.Disable();
+            promptUI.SetActive(false);
+        }
 
         if (interacting)
         {
@@ -54,7 +74,7 @@ public class Door : MonoBehaviour
 
         if (timeToHold <= 0f)
         {
-            if (scoreManager.GetMoney >= doorCost)
+            if (ScoreManager.Instance.GetMoney >= doorCost)
             {
                 DoorBought();
             }
@@ -89,7 +109,8 @@ public class Door : MonoBehaviour
         plrOpenedDoor = true;
         interacting = false;
         controls.Disable();
-        scoreManager.SpendMoney(doorCost);
+        promptUI.SetActive(false);
+        ScoreManager.Instance.SpendMoney(doorCost);
         animator.SetTrigger("Purchase");
     }
 }

@@ -11,12 +11,13 @@ public class EnemyHealth : MonoBehaviour, ICollidable
     void ICollidable.OnCollision(float damage)
     {
         dummyHealth -= damage;
-        if (dummyHealth < 0)
+        if (dummyHealth <= 0)
         {
             Dead();
             Destroy(gameObject);
         }
     }
+
     public void SetWaveManager(WaveSystem Manager)
     {
         waveManager = Manager;
@@ -28,10 +29,18 @@ public class EnemyHealth : MonoBehaviour, ICollidable
         {
             ScoreManager.Instance.AddKillScore();
         }
+        else
+        {
+            Debug.LogWarning("ScoreManager instance is null!");
+        }
 
         if (waveManager != null)
         {
             waveManager.OnEnemyDied();
+        }
+        else
+        {
+            Debug.LogWarning("WaveManager is null!");
         }
     }
 }

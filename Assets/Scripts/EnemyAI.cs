@@ -32,6 +32,7 @@ public class EnemyAI : MonoBehaviour
         basicEnemy.autoTraverseOffMeshLink = false;
         passedThruBarricade = false;
         playerTarget = GameObject.FindWithTag("Player").transform;
+        
     }
 
     void Update()
@@ -88,7 +89,7 @@ public class EnemyAI : MonoBehaviour
         Vector3 startPos = transform.position;
         Vector3 endPos = linkData.endPos + Vector3.up * basicEnemy.baseOffset;
 
-        float traverseSpeed = 1.5f;
+        float traverseSpeed = 3.5f;
         float distance = Vector3.Distance(startPos, endPos);
         float duration = distance / traverseSpeed;
         float elapsed = 0f;

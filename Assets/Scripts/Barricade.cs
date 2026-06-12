@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -31,11 +32,11 @@ public class Barricade : MonoBehaviour
     public event EventHandler<BarricadeEventArgs> OnRepaired;
 
     [SerializeField] private Transform navMeshTarget;
-    [SerializeField] private Transform windowWaypoint1;
-    [SerializeField] private Transform windowWaypoint2;
+    
 
     public Transform getNavmeshTarget() => navMeshTarget;
-    
+    [SerializeField] private GameObject promptUI;
+    [SerializeField] private TextMeshProUGUI promptText;
 
     public static Barricade Instance { get; private set; }
     private Controls controls;
@@ -46,6 +47,7 @@ public class Barricade : MonoBehaviour
         canEnter = false;
         controls = new Controls();
         Instance = this;
+        promptUI.SetActive(false);
     }
 
     private void AllowEntry()
@@ -83,6 +85,8 @@ public class Barricade : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             plrNearBarricade = true;
+           
+           
         }
     }
 
@@ -123,12 +127,17 @@ public class Barricade : MonoBehaviour
 
         if (plrNearBarricade && !emyNearBarricade)
         {
+            if (currentHealth < 100f)
+            {
+            promptUI.SetActive(true);
+            }
             controls.Enable();
         }
         else
         {
             allowRepair = false;
             controls.Disable();
+            promptUI.SetActive(false);
         }
 
         if (interacting)
